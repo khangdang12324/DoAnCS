@@ -142,6 +142,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fDSDT.resx">
       <DependentUpon>fDSDT.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="fHome.resx">
       <DependentUpon>fHome.cs</DependentUpon>

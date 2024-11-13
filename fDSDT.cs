@@ -28,7 +28,7 @@ namespace Do_an_co_so
 		private void fDSDT_Load(object sender, EventArgs e)
 		{
 			
-			cbNam.SelectedIndex = 0;
+			cbNamBatDau.SelectedIndex = 0;
 			cbTenChuNhiem.SelectedIndex = 0;
 		}
 
