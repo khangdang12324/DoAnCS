@@ -67,5 +67,49 @@ namespace Do_an_co_so
 			dtgvDSDT.DataSource = DataProvider.Instance.ExecuteQuery(query);
 		}
 
+		private void thêmThànhViênToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void contextMenuStripAddMember_Click(object sender, EventArgs e)
+		{
+
+		}
+		void UpdateProjectMembers(string projectQDSo, string updateMembers)
+		{
+			string updateQuery = "UPDATE Projects SET nameMember = @updatedMembers WHERE QDSo = @projectQDSo";
+			DataProvider.Instance.ExecuteNonQuery(updateQuery, new object[] { updateMembers, projectQDSo });
+		}
+		private void contextMenuStripAddMember_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+		{
+			if (e.ClickedItem.Text == "Thêm thành viên")
+			{
+				if (dtgvDSDT.CurrentRow != null)
+				{
+					using (var addMemberForm = new fAddMember())
+					{
+						if (addMemberForm.ShowDialog() == DialogResult.OK)
+						{
+							string newMember = addMemberForm.NewMemberName;
+							string existingMembers = dtgvDSDT.CurrentRow.Cells["Thành viên tham gia"].Value?.ToString();
+
+							// Thêm thành viên mới vào danh sách
+							dtgvDSDT.CurrentRow.Cells["Thành viên tham gia"].Value = string.IsNullOrEmpty(existingMembers)
+								? newMember
+								: existingMembers + ", " + newMember;
+
+							// Lưu lại vào cơ sở dữ liệu
+							string projectQDSo = dtgvDSDT.CurrentRow.Cells["Quyết định số"].Value.ToString();
+							UpdateProjectMembers(projectQDSo, dtgvDSDT.CurrentRow.Cells["Thành viên tham gia"].Value.ToString());
+
+							// Làm mới DataGridView nếu cần
+							LoadProjectsData();
+						}
+					}
+				}
+			}
+		}
+
 	}
 }

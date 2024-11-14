@@ -28,13 +28,22 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.dtgvDSDT = new System.Windows.Forms.DataGridView();
+			this.contextMenuStripAddMember = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.thêmThànhViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.rdSV = new System.Windows.Forms.RadioButton();
+			this.rdCapTinh = new System.Windows.Forms.RadioButton();
+			this.rdCapTrgTrongDiem = new System.Windows.Forms.RadioButton();
+			this.rdCapTruong = new System.Windows.Forms.RadioButton();
 			this.rdGV = new System.Windows.Forms.RadioButton();
 			this.cbTenChuNhiem = new System.Windows.Forms.ComboBox();
+			this.cbNamKetThuc = new System.Windows.Forms.ComboBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
 			this.cbNamBatDau = new System.Windows.Forms.ComboBox();
 			this.btnXuatExcel = new System.Windows.Forms.Button();
 			this.btnLuu = new System.Windows.Forms.Button();
@@ -42,13 +51,8 @@
 			this.txtTimKiemTheoDeTai = new System.Windows.Forms.TextBox();
 			this.txtSoDT = new System.Windows.Forms.TextBox();
 			this.btnXemChiTiet = new System.Windows.Forms.Button();
-			this.cbNamKetThuc = new System.Windows.Forms.ComboBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.rdCapTruong = new System.Windows.Forms.RadioButton();
-			this.rdCapTrgTrongDiem = new System.Windows.Forms.RadioButton();
-			this.rdCapTinh = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).BeginInit();
+			this.contextMenuStripAddMember.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -56,13 +60,31 @@
 			// dtgvDSDT
 			// 
 			this.dtgvDSDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dtgvDSDT.Location = new System.Drawing.Point(3, 315);
+			this.dtgvDSDT.ContextMenuStrip = this.contextMenuStripAddMember;
+			this.dtgvDSDT.Location = new System.Drawing.Point(3, 318);
 			this.dtgvDSDT.Name = "dtgvDSDT";
 			this.dtgvDSDT.RowHeadersWidth = 51;
 			this.dtgvDSDT.RowTemplate.Height = 24;
 			this.dtgvDSDT.Size = new System.Drawing.Size(1269, 498);
 			this.dtgvDSDT.TabIndex = 0;
 			this.dtgvDSDT.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDSDT_CellContentClick);
+			// 
+			// contextMenuStripAddMember
+			// 
+			this.contextMenuStripAddMember.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.contextMenuStripAddMember.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.thêmThànhViênToolStripMenuItem});
+			this.contextMenuStripAddMember.Name = "contextMenuStripAddMember";
+			this.contextMenuStripAddMember.Size = new System.Drawing.Size(188, 28);
+			this.contextMenuStripAddMember.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStripAddMember_ItemClicked);
+			this.contextMenuStripAddMember.Click += new System.EventHandler(this.contextMenuStripAddMember_Click);
+			// 
+			// thêmThànhViênToolStripMenuItem
+			// 
+			this.thêmThànhViênToolStripMenuItem.Name = "thêmThànhViênToolStripMenuItem";
+			this.thêmThànhViênToolStripMenuItem.Size = new System.Drawing.Size(187, 24);
+			this.thêmThànhViênToolStripMenuItem.Text = "Thêm thành viên";
+			this.thêmThànhViênToolStripMenuItem.Click += new System.EventHandler(this.thêmThànhViênToolStripMenuItem_Click);
 			// 
 			// panel3
 			// 
@@ -114,13 +136,46 @@
 			this.rdSV.Name = "rdSV";
 			this.rdSV.Size = new System.Drawing.Size(114, 29);
 			this.rdSV.TabIndex = 38;
-			this.rdSV.TabStop = true;
 			this.rdSV.Text = "Sinh viên";
 			this.rdSV.UseVisualStyleBackColor = true;
+			// 
+			// rdCapTinh
+			// 
+			this.rdCapTinh.AutoSize = true;
+			this.rdCapTinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdCapTinh.Location = new System.Drawing.Point(855, 118);
+			this.rdCapTinh.Name = "rdCapTinh";
+			this.rdCapTinh.Size = new System.Drawing.Size(106, 29);
+			this.rdCapTinh.TabIndex = 38;
+			this.rdCapTinh.Text = "Cấp tỉnh";
+			this.rdCapTinh.UseVisualStyleBackColor = true;
+			// 
+			// rdCapTrgTrongDiem
+			// 
+			this.rdCapTrgTrongDiem.AutoSize = true;
+			this.rdCapTrgTrongDiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdCapTrgTrongDiem.Location = new System.Drawing.Point(855, 83);
+			this.rdCapTrgTrongDiem.Name = "rdCapTrgTrongDiem";
+			this.rdCapTrgTrongDiem.Size = new System.Drawing.Size(226, 29);
+			this.rdCapTrgTrongDiem.TabIndex = 38;
+			this.rdCapTrgTrongDiem.Text = "Cấp trường trọng điểm";
+			this.rdCapTrgTrongDiem.UseVisualStyleBackColor = true;
+			// 
+			// rdCapTruong
+			// 
+			this.rdCapTruong.AutoSize = true;
+			this.rdCapTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdCapTruong.Location = new System.Drawing.Point(855, 48);
+			this.rdCapTruong.Name = "rdCapTruong";
+			this.rdCapTruong.Size = new System.Drawing.Size(130, 29);
+			this.rdCapTruong.TabIndex = 38;
+			this.rdCapTruong.Text = "Cấp trường";
+			this.rdCapTruong.UseVisualStyleBackColor = true;
 			// 
 			// rdGV
 			// 
 			this.rdGV.AutoSize = true;
+			this.rdGV.Checked = true;
 			this.rdGV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.rdGV.Location = new System.Drawing.Point(855, 14);
 			this.rdGV.Name = "rdGV";
@@ -141,6 +196,38 @@
 			this.cbTenChuNhiem.Name = "cbTenChuNhiem";
 			this.cbTenChuNhiem.Size = new System.Drawing.Size(244, 33);
 			this.cbTenChuNhiem.TabIndex = 37;
+			// 
+			// cbNamKetThuc
+			// 
+			this.cbNamKetThuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbNamKetThuc.FormattingEnabled = true;
+			this.cbNamKetThuc.Items.AddRange(new object[] {
+            "2024",
+            "2023"});
+			this.cbNamKetThuc.Location = new System.Drawing.Point(763, 12);
+			this.cbNamKetThuc.Name = "cbNamKetThuc";
+			this.cbNamKetThuc.Size = new System.Drawing.Size(86, 33);
+			this.cbNamKetThuc.TabIndex = 37;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(693, 10);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(64, 31);
+			this.label4.TabIndex = 1;
+			this.label4.Text = "Đến";
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.Location = new System.Drawing.Point(545, 10);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(46, 31);
+			this.label3.TabIndex = 1;
+			this.label3.Text = "Từ";
 			// 
 			// cbNamBatDau
 			// 
@@ -235,74 +322,6 @@
 			this.btnXemChiTiet.UseVisualStyleBackColor = false;
 			this.btnXemChiTiet.Click += new System.EventHandler(this.btnXemChiTiet_Click);
 			// 
-			// cbNamKetThuc
-			// 
-			this.cbNamKetThuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbNamKetThuc.FormattingEnabled = true;
-			this.cbNamKetThuc.Items.AddRange(new object[] {
-            "2024",
-            "2023"});
-			this.cbNamKetThuc.Location = new System.Drawing.Point(763, 12);
-			this.cbNamKetThuc.Name = "cbNamKetThuc";
-			this.cbNamKetThuc.Size = new System.Drawing.Size(86, 33);
-			this.cbNamKetThuc.TabIndex = 37;
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label3.Location = new System.Drawing.Point(545, 10);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(46, 31);
-			this.label3.TabIndex = 1;
-			this.label3.Text = "Từ";
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label4.Location = new System.Drawing.Point(693, 10);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(64, 31);
-			this.label4.TabIndex = 1;
-			this.label4.Text = "Đến";
-			// 
-			// rdCapTruong
-			// 
-			this.rdCapTruong.AutoSize = true;
-			this.rdCapTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapTruong.Location = new System.Drawing.Point(855, 48);
-			this.rdCapTruong.Name = "rdCapTruong";
-			this.rdCapTruong.Size = new System.Drawing.Size(130, 29);
-			this.rdCapTruong.TabIndex = 38;
-			this.rdCapTruong.TabStop = true;
-			this.rdCapTruong.Text = "Cấp trường";
-			this.rdCapTruong.UseVisualStyleBackColor = true;
-			// 
-			// rdCapTrgTrongDiem
-			// 
-			this.rdCapTrgTrongDiem.AutoSize = true;
-			this.rdCapTrgTrongDiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapTrgTrongDiem.Location = new System.Drawing.Point(855, 83);
-			this.rdCapTrgTrongDiem.Name = "rdCapTrgTrongDiem";
-			this.rdCapTrgTrongDiem.Size = new System.Drawing.Size(226, 29);
-			this.rdCapTrgTrongDiem.TabIndex = 38;
-			this.rdCapTrgTrongDiem.TabStop = true;
-			this.rdCapTrgTrongDiem.Text = "Cấp trường trọng điểm";
-			this.rdCapTrgTrongDiem.UseVisualStyleBackColor = true;
-			// 
-			// rdCapTinh
-			// 
-			this.rdCapTinh.AutoSize = true;
-			this.rdCapTinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapTinh.Location = new System.Drawing.Point(855, 118);
-			this.rdCapTinh.Name = "rdCapTinh";
-			this.rdCapTinh.Size = new System.Drawing.Size(106, 29);
-			this.rdCapTinh.TabIndex = 38;
-			this.rdCapTinh.TabStop = true;
-			this.rdCapTinh.Text = "Cấp tỉnh";
-			this.rdCapTinh.UseVisualStyleBackColor = true;
-			// 
 			// fDSDT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -319,6 +338,7 @@
 			this.Text = "fDSDT";
 			this.Load += new System.EventHandler(this.fDSDT_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).EndInit();
+			this.contextMenuStripAddMember.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
 			this.panel1.ResumeLayout(false);
@@ -350,5 +370,7 @@
 		private System.Windows.Forms.ComboBox cbNamKetThuc;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStripAddMember;
+		private System.Windows.Forms.ToolStripMenuItem thêmThànhViênToolStripMenuItem;
 	}
 }
