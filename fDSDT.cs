@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,6 +19,7 @@ namespace Do_an_co_so
 		{
 			InitializeComponent();
 			LoadProjectsData();
+			LoadComboBoxData();
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -27,9 +29,9 @@ namespace Do_an_co_so
 
 		private void fDSDT_Load(object sender, EventArgs e)
 		{
-			
+
 			cbNamBatDau.SelectedIndex = 0;
-			cbTenChuNhiem.SelectedIndex = 0;
+			
 		}
 
 		private void btnXemChiTiet_Click(object sender, EventArgs e)
@@ -46,6 +48,23 @@ namespace Do_an_co_so
 		{
 
 		}
+		public void LoadComboBoxData()
+		{
+			string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True";
+			string query = "SELECT DISTINCT nameResearchers FROM dbo.Projects";
+
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connection);
+				DataTable dataTable = new DataTable();
+				dataAdapter.Fill(dataTable);
+
+				// Lọc chỉ lấy các tên duy nhất
+				cbTenChuNhiem.DataSource = dataTable.DefaultView.ToTable(true, "nameResearchers");
+				cbTenChuNhiem.DisplayMember = "nameResearchers";
+				cbTenChuNhiem.ValueMember = "nameResearchers";
+			}
+		}
 		void LoadProjectsData()
 		{
 
@@ -55,6 +74,7 @@ namespace Do_an_co_so
             QDSo AS [Quyết định số], 
             type AS [Loại dự án], 
             nameProject AS [Tên đề tài], 
+			cap AS[Cấp đề tài],
             nameResearchers AS [Người nghiên cứu chính], 
             nameMember AS [Thành viên tham gia], 
             ngayBatDau AS [Ngày bắt đầu], 
@@ -111,5 +131,93 @@ namespace Do_an_co_so
 			}
 		}
 
+		private void rdGV_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rdGV.Checked)
+			{
+				pnCap.Visible = true;
+				ApplyFilter("Loại dự án", "Giảng viên"); // Áp dụng lọc cho "Giảng viên"
+			}
+			else
+			{
+				ResetFilter(); // Bỏ lọc khi không chọn
+			}
+		}
+
+		private void rdSV_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rdSV.Checked)
+			{
+				pnCap.Visible = false;
+				ApplyFilter("Loại dự án", "Sinh viên"); // Áp dụng lọc cho "Sinh viên"
+			}
+			else
+			{
+				ResetFilter(); // Bỏ lọc khi không chọn
+			}
+		}
+
+		private void rdCapTruong_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rdCapTruong.Checked)
+				ApplyFilter("Cấp đề tài", "Cấp trường"); // Áp dụng lọc cho "Cấp trường"
+			else
+				ResetFilter(); // Bỏ lọc khi không chọn
+		}
+
+		private void rdCapTrgTrongDiem_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rdCapTrgTrongDiem.Checked)
+				ApplyFilter("Cấp đề tài", "Cấp trường trọng điểm"); // Áp dụng lọc cho "Cấp trường trọng điểm"
+			else
+				ResetFilter(); // Bỏ lọc khi không chọn
+		}
+
+		private void rdCapTinh_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rdCapTinh.Checked)
+				ApplyFilter("Cấp đề tài", "Cấp tỉnh"); // Áp dụng lọc cho "Cấp tỉnh"
+			else
+				ResetFilter(); // Bỏ lọc khi không chọn
+		}
+
+		private void ResetFilter()
+		{
+			LoadProjectsData(); // Nạp lại dữ liệu gốc
+		}
+
+		void ApplyFilter(string columnName, string filterValue)
+		{
+			if (dtgvDSDT.DataSource is DataView dataView)
+			{
+				string escapedValue = filterValue.Replace("'", "''");
+				dataView.RowFilter = $"[{columnName}] = '{escapedValue}'";
+			}
+			else if (dtgvDSDT.DataSource is DataTable dataTable)
+			{
+				DataView dv = new DataView(dataTable);
+				string escapedValue = filterValue.Replace("'", "''");
+				dv.RowFilter = $"[{columnName}] = '{escapedValue}'";
+				dtgvDSDT.DataSource = dv;
+			}
+		}
+
+		private void rdAll_CheckedChanged(object sender, EventArgs e)
+		{
+			ResetFilter();
+		}
+
+		private void cbTenChuNhiem_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (cbTenChuNhiem.SelectedIndex >= 0)
+			{
+				string selectedTeacher = cbTenChuNhiem.SelectedValue.ToString();
+				ApplyFilter("Người nghiên cứu chính", selectedTeacher);
+			}
+			else
+			{
+				ResetFilter(); // Bỏ lọc nếu không chọn gì
+			}
+		}
 	}
 }

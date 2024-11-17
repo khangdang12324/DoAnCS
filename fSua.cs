@@ -34,6 +34,7 @@ namespace Do_an_co_so
             QDSo AS [Quyết định số], 
             type AS [Loại dự án], 
             nameProject AS [Tên đề tài], 
+			cap AS[Cấp đề tài],
             nameResearchers AS [Người nghiên cứu chính], 
             nameMember AS [Thành viên tham gia], 
             ngayBatDau AS [Ngày bắt đầu], 
