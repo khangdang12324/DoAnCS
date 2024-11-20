@@ -231,6 +231,7 @@ namespace Do_an_co_so
 				string baiBaoLienQuan = dtgvProjects.CurrentRow.Cells["Bài báo liên quan"].Value.ToString();
 				string giaiThuong = dtgvProjects.CurrentRow.Cells["Giải thưởng"].Value.ToString();
 				string trangThai = dtgvProjects.CurrentRow.Cells["Trạng thái"].Value.ToString();
+				// Làm mới ComboBox năm
 		
 			}
 	

@@ -35,11 +35,13 @@
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.label1 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.rdSV = new System.Windows.Forms.RadioButton();
+			this.rdAll = new System.Windows.Forms.RadioButton();
+			this.pnCap = new System.Windows.Forms.Panel();
+			this.rdCapTruong = new System.Windows.Forms.RadioButton();
 			this.rdCapTinh = new System.Windows.Forms.RadioButton();
 			this.rdCapTrgTrongDiem = new System.Windows.Forms.RadioButton();
-			this.rdCapTruong = new System.Windows.Forms.RadioButton();
 			this.rdGV = new System.Windows.Forms.RadioButton();
+			this.rdSV = new System.Windows.Forms.RadioButton();
 			this.cbTenChuNhiem = new System.Windows.Forms.ComboBox();
 			this.cbNamKetThuc = new System.Windows.Forms.ComboBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@
 			this.txtTimKiemTheoDeTai = new System.Windows.Forms.TextBox();
 			this.txtSoDT = new System.Windows.Forms.TextBox();
 			this.btnXemChiTiet = new System.Windows.Forms.Button();
-			this.pnCap = new System.Windows.Forms.Panel();
-			this.rdAll = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).BeginInit();
 			this.contextMenuStripAddMember.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -77,13 +77,14 @@
             this.thêmThànhViênToolStripMenuItem});
 			this.contextMenuStripAddMember.Name = "contextMenuStripAddMember";
 			this.contextMenuStripAddMember.Size = new System.Drawing.Size(188, 28);
+			this.contextMenuStripAddMember.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAddMember_Opening);
 			this.contextMenuStripAddMember.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStripAddMember_ItemClicked);
 			this.contextMenuStripAddMember.Click += new System.EventHandler(this.contextMenuStripAddMember_Click);
 			// 
 			// thêmThànhViênToolStripMenuItem
 			// 
 			this.thêmThànhViênToolStripMenuItem.Name = "thêmThànhViênToolStripMenuItem";
-			this.thêmThànhViênToolStripMenuItem.Size = new System.Drawing.Size(187, 24);
+			this.thêmThànhViênToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
 			this.thêmThànhViênToolStripMenuItem.Text = "Thêm thành viên";
 			this.thêmThànhViênToolStripMenuItem.Click += new System.EventHandler(this.thêmThànhViênToolStripMenuItem_Click);
 			// 
@@ -126,17 +127,42 @@
 			this.panel1.Size = new System.Drawing.Size(1269, 176);
 			this.panel1.TabIndex = 9;
 			// 
-			// rdSV
+			// rdAll
 			// 
-			this.rdSV.AutoSize = true;
-			this.rdSV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdSV.Location = new System.Drawing.Point(887, 10);
-			this.rdSV.Name = "rdSV";
-			this.rdSV.Size = new System.Drawing.Size(114, 29);
-			this.rdSV.TabIndex = 38;
-			this.rdSV.Text = "Sinh viên";
-			this.rdSV.UseVisualStyleBackColor = true;
-			this.rdSV.CheckedChanged += new System.EventHandler(this.rdSV_CheckedChanged);
+			this.rdAll.AutoSize = true;
+			this.rdAll.Checked = true;
+			this.rdAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdAll.Location = new System.Drawing.Point(777, 9);
+			this.rdAll.Name = "rdAll";
+			this.rdAll.Size = new System.Drawing.Size(88, 29);
+			this.rdAll.TabIndex = 40;
+			this.rdAll.TabStop = true;
+			this.rdAll.Text = "Tất cả";
+			this.rdAll.UseVisualStyleBackColor = true;
+			this.rdAll.CheckedChanged += new System.EventHandler(this.rdAll_CheckedChanged);
+			// 
+			// pnCap
+			// 
+			this.pnCap.Controls.Add(this.rdCapTruong);
+			this.pnCap.Controls.Add(this.rdCapTinh);
+			this.pnCap.Controls.Add(this.rdCapTrgTrongDiem);
+			this.pnCap.Location = new System.Drawing.Point(1013, 41);
+			this.pnCap.Name = "pnCap";
+			this.pnCap.Size = new System.Drawing.Size(240, 113);
+			this.pnCap.TabIndex = 39;
+			this.pnCap.Visible = false;
+			// 
+			// rdCapTruong
+			// 
+			this.rdCapTruong.AutoSize = true;
+			this.rdCapTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdCapTruong.Location = new System.Drawing.Point(11, 5);
+			this.rdCapTruong.Name = "rdCapTruong";
+			this.rdCapTruong.Size = new System.Drawing.Size(130, 29);
+			this.rdCapTruong.TabIndex = 38;
+			this.rdCapTruong.Text = "Cấp trường";
+			this.rdCapTruong.UseVisualStyleBackColor = true;
+			this.rdCapTruong.CheckedChanged += new System.EventHandler(this.rdCapTruong_CheckedChanged);
 			// 
 			// rdCapTinh
 			// 
@@ -162,18 +188,6 @@
 			this.rdCapTrgTrongDiem.UseVisualStyleBackColor = true;
 			this.rdCapTrgTrongDiem.CheckedChanged += new System.EventHandler(this.rdCapTrgTrongDiem_CheckedChanged);
 			// 
-			// rdCapTruong
-			// 
-			this.rdCapTruong.AutoSize = true;
-			this.rdCapTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapTruong.Location = new System.Drawing.Point(11, 5);
-			this.rdCapTruong.Name = "rdCapTruong";
-			this.rdCapTruong.Size = new System.Drawing.Size(130, 29);
-			this.rdCapTruong.TabIndex = 38;
-			this.rdCapTruong.Text = "Cấp trường";
-			this.rdCapTruong.UseVisualStyleBackColor = true;
-			this.rdCapTruong.CheckedChanged += new System.EventHandler(this.rdCapTruong_CheckedChanged);
-			// 
 			// rdGV
 			// 
 			this.rdGV.AutoSize = true;
@@ -185,6 +199,18 @@
 			this.rdGV.Text = "Giảng viên";
 			this.rdGV.UseVisualStyleBackColor = true;
 			this.rdGV.CheckedChanged += new System.EventHandler(this.rdGV_CheckedChanged);
+			// 
+			// rdSV
+			// 
+			this.rdSV.AutoSize = true;
+			this.rdSV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdSV.Location = new System.Drawing.Point(887, 10);
+			this.rdSV.Name = "rdSV";
+			this.rdSV.Size = new System.Drawing.Size(114, 29);
+			this.rdSV.TabIndex = 38;
+			this.rdSV.Text = "Sinh viên";
+			this.rdSV.UseVisualStyleBackColor = true;
+			this.rdSV.CheckedChanged += new System.EventHandler(this.rdSV_CheckedChanged);
 			// 
 			// cbTenChuNhiem
 			// 
@@ -203,10 +229,11 @@
 			this.cbNamKetThuc.Items.AddRange(new object[] {
             "2024",
             "2023"});
-			this.cbNamKetThuc.Location = new System.Drawing.Point(227, 9);
+			this.cbNamKetThuc.Location = new System.Drawing.Point(227, 8);
 			this.cbNamKetThuc.Name = "cbNamKetThuc";
 			this.cbNamKetThuc.Size = new System.Drawing.Size(86, 33);
 			this.cbNamKetThuc.TabIndex = 37;
+			this.cbNamKetThuc.SelectedIndexChanged += new System.EventHandler(this.cbNamKetThuc_SelectedIndexChanged);
 			// 
 			// label4
 			// 
@@ -239,6 +266,7 @@
 			this.cbNamBatDau.Name = "cbNamBatDau";
 			this.cbNamBatDau.Size = new System.Drawing.Size(86, 33);
 			this.cbNamBatDau.TabIndex = 37;
+			this.cbNamBatDau.SelectedIndexChanged += new System.EventHandler(this.cbNamBatDau_SelectedIndexChanged);
 			// 
 			// label2
 			// 
@@ -286,31 +314,6 @@
 			this.btnXemChiTiet.Text = "Xem chi tiết";
 			this.btnXemChiTiet.UseVisualStyleBackColor = false;
 			this.btnXemChiTiet.Click += new System.EventHandler(this.btnXemChiTiet_Click);
-			// 
-			// pnCap
-			// 
-			this.pnCap.Controls.Add(this.rdCapTruong);
-			this.pnCap.Controls.Add(this.rdCapTinh);
-			this.pnCap.Controls.Add(this.rdCapTrgTrongDiem);
-			this.pnCap.Location = new System.Drawing.Point(1013, 41);
-			this.pnCap.Name = "pnCap";
-			this.pnCap.Size = new System.Drawing.Size(240, 113);
-			this.pnCap.TabIndex = 39;
-			this.pnCap.Visible = false;
-			// 
-			// rdAll
-			// 
-			this.rdAll.AutoSize = true;
-			this.rdAll.Checked = true;
-			this.rdAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdAll.Location = new System.Drawing.Point(777, 9);
-			this.rdAll.Name = "rdAll";
-			this.rdAll.Size = new System.Drawing.Size(88, 29);
-			this.rdAll.TabIndex = 40;
-			this.rdAll.TabStop = true;
-			this.rdAll.Text = "Tất cả";
-			this.rdAll.UseVisualStyleBackColor = true;
-			this.rdAll.CheckedChanged += new System.EventHandler(this.rdAll_CheckedChanged);
 			// 
 			// fDSDT
 			// 

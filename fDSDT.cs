@@ -18,8 +18,11 @@ namespace Do_an_co_so
 		public fDSDT()
 		{
 			InitializeComponent();
-			LoadProjectsData();
+			LoadYearComboBox();
 			LoadComboBoxData();
+		
+			LoadProjectsData();
+			
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -31,7 +34,7 @@ namespace Do_an_co_so
 		{
 
 			cbNamBatDau.SelectedIndex = 0;
-			
+			cbNamKetThuc.SelectedIndex = 0;
 		}
 
 		private void btnXemChiTiet_Click(object sender, EventArgs e)
@@ -51,7 +54,26 @@ namespace Do_an_co_so
 		public void LoadComboBoxData()
 		{
 			string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True";
-			string query = "SELECT DISTINCT nameResearchers FROM dbo.Projects";
+
+			string query = @"
+WITH SplitNames AS (
+    SELECT nameResearchers AS Name
+    FROM dbo.Projects
+    UNION ALL
+    SELECT LTRIM(RTRIM(value)) AS Name
+    FROM dbo.Projects
+    CROSS APPLY STRING_SPLIT(nameMember, ',')
+)
+SELECT DISTINCT 
+    Name, 
+    RIGHT(Name, CHARINDEX(' ', REVERSE(Name) + ' ')-1) COLLATE Vietnamese_CI_AS AS LastNameInitial,
+    Name COLLATE Vietnamese_CI_AS
+FROM SplitNames
+WHERE Name IS NOT NULL AND Name <> ''
+ORDER BY LastNameInitial, Name;
+
+";
+
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
@@ -59,12 +81,18 @@ namespace Do_an_co_so
 				DataTable dataTable = new DataTable();
 				dataAdapter.Fill(dataTable);
 
-				// Lọc chỉ lấy các tên duy nhất
-				cbTenChuNhiem.DataSource = dataTable.DefaultView.ToTable(true, "nameResearchers");
-				cbTenChuNhiem.DisplayMember = "nameResearchers";
-				cbTenChuNhiem.ValueMember = "nameResearchers";
+				// Thêm mục mặc định
+				DataRow newRow = dataTable.NewRow();
+				newRow["Name"] = "Chọn chủ nhiệm hoặc thành viên";
+				dataTable.Rows.InsertAt(newRow, 0);
+
+				cbTenChuNhiem.DataSource = dataTable;
+				cbTenChuNhiem.DisplayMember = "Name";
+				cbTenChuNhiem.ValueMember = "Name";
 			}
 		}
+
+
 		void LoadProjectsData()
 		{
 
@@ -121,15 +149,20 @@ namespace Do_an_co_so
 
 							// Lưu lại vào cơ sở dữ liệu
 							string projectQDSo = dtgvDSDT.CurrentRow.Cells["Quyết định số"].Value.ToString();
-							UpdateProjectMembers(projectQDSo, dtgvDSDT.CurrentRow.Cells["Thành viên tham gia"].Value.ToString());
+							string updatedMembers = dtgvDSDT.CurrentRow.Cells["Thành viên tham gia"].Value.ToString();
 
-							// Làm mới DataGridView nếu cần
-							LoadProjectsData();
+							// Gọi hàm để cập nhật thành viên vào cơ sở dữ liệu
+							UpdateProjectMembers(projectQDSo, updatedMembers);
+
+							// Làm mới ComboBox và DataGridView
+							LoadComboBoxData();
+							LoadProjectsData();  // Đảm bảo dữ liệu trong DataGridView được làm mới
 						}
 					}
 				}
 			}
 		}
+
 
 		private void rdGV_CheckedChanged(object sender, EventArgs e)
 		{
@@ -201,6 +234,17 @@ namespace Do_an_co_so
 				dtgvDSDT.DataSource = dv;
 			}
 		}
+		void ApplyFilterForCBB(string column1, string column2, string filterValue)
+		{
+			if (dtgvDSDT.DataSource is DataTable dataTable)
+			{
+				DataView dv = new DataView(dataTable);
+				string escapedValue = filterValue.Replace("'", "''");
+				dv.RowFilter = $"[{column1}] = '{escapedValue}' OR [{column2}] LIKE '%{escapedValue}%'";
+				dtgvDSDT.DataSource = dv;
+			}
+		}
+
 
 		private void rdAll_CheckedChanged(object sender, EventArgs e)
 		{
@@ -209,15 +253,115 @@ namespace Do_an_co_so
 
 		private void cbTenChuNhiem_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (cbTenChuNhiem.SelectedIndex >= 0)
+			cbTenChuNhiem.SelectedIndexChanged -= cbTenChuNhiem_SelectedIndexChanged;
+
+			// Xử lý logic lọc
+			if (cbTenChuNhiem.SelectedValue != null)
 			{
-				string selectedTeacher = cbTenChuNhiem.SelectedValue.ToString();
-				ApplyFilter("Người nghiên cứu chính", selectedTeacher);
+				string selectedValue = cbTenChuNhiem.SelectedValue.ToString();
+				if (selectedValue == "Chọn chủ nhiệm hoặc thành viên")
+				{
+					ResetFilter();
+				}
+				else
+				{
+					LoadProjectsData();
+					ApplyFilterForCBB("Người nghiên cứu chính", "Thành viên tham gia", selectedValue);
+				}
 			}
-			else
-			{
-				ResetFilter(); // Bỏ lọc nếu không chọn gì
-			}
+
+			cbTenChuNhiem.SelectedIndexChanged += cbTenChuNhiem_SelectedIndexChanged;
 		}
+
+		private void contextMenuStripAddMember_Opening(object sender, CancelEventArgs e)
+		{
+
+		}
+		#region cbNam
+		public void LoadYearComboBox()
+		{
+			// Lấy danh sách năm từ cơ sở dữ liệu
+			string query = @"
+        SELECT DISTINCT YEAR(NgayBatDau) AS Nam 
+        FROM dbo.Projects
+        UNION
+        SELECT DISTINCT YEAR(NgayKetThuc) AS Nam
+        FROM dbo.Projects
+        ORDER BY Nam";
+
+			DataTable dataTable = DataProvider.Instance.ExecuteQuery(query);
+
+			// Xóa dữ liệu cũ trong ComboBox
+			cbNamBatDau.Items.Clear();
+			cbNamKetThuc.Items.Clear();
+
+			cbNamBatDau.Items.Add("Chọn");
+			cbNamKetThuc.Items.Add("Chọn");
+
+			// Thêm dữ liệu mới vào ComboBox
+			foreach (DataRow row in dataTable.Rows)
+			{
+				cbNamBatDau.Items.Add(row["Nam"].ToString());
+				cbNamKetThuc.Items.Add(row["Nam"].ToString());
+			}
+
+			cbNamBatDau.SelectedIndex = 0;
+			cbNamKetThuc.SelectedIndex = 0;
+		}
+
+		private void cbNamBatDau_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			FilterProjectsByYear();
+
+		}
+
+		private void cbNamKetThuc_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			FilterProjectsByYear();
+		}
+
+		private void FilterProjectsByYear()
+		{
+			if (cbNamBatDau.SelectedIndex > 0 && cbNamKetThuc.SelectedIndex > 0)
+			{
+				int namBatDau = int.Parse(cbNamBatDau.SelectedItem.ToString());
+				int namKetThuc = int.Parse(cbNamKetThuc.SelectedItem.ToString());
+
+				// Kiểm tra điều kiện hợp lệ
+				if (namBatDau > namKetThuc)
+				{
+					MessageBox.Show("Năm bắt đầu không được lớn hơn năm kết thúc!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					return;
+				}
+
+				// Lọc dữ liệu từ cơ sở dữ liệu
+				string query = @"
+            SELECT 
+                QDSo AS [Quyết định số], 
+                type AS [Loại dự án], 
+                nameProject AS [Tên đề tài], 
+                cap AS [Cấp đề tài], 
+                nameResearchers AS [Người nghiên cứu chính], 
+                nameMember AS [Thành viên tham gia], 
+                ngayBatDau AS [Ngày bắt đầu], 
+                ngayKetThuc AS [Ngày kết thúc],
+                status AS [Trạng thái]
+            FROM dbo.Projects
+            WHERE YEAR(ngayBatDau) >= @namBatDau AND YEAR(ngayKetThuc) <= @namKetThuc";
+
+				// Lấy dữ liệu từ database
+				DataTable filteredData = DataProvider.Instance.ExecuteQuery(query, new object[] { namBatDau, namKetThuc });
+
+				// Hiển thị dữ liệu đã lọc
+				dtgvDSDT.DataSource = filteredData;
+
+			}
+			
+		}
+
+
+
+
+		#endregion
 	}
 }
