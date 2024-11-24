@@ -20,9 +20,8 @@ namespace Do_an_co_so
 			InitializeComponent();
 			LoadYearComboBox();
 			LoadComboBoxData();
-		
+			LoadTrangThaiComboBox();
 			LoadProjectsData();
-			
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -322,45 +321,114 @@ ORDER BY LastNameInitial, Name;
 
 		private void FilterProjectsByYear()
 		{
-			if (cbNamBatDau.SelectedIndex > 0 && cbNamKetThuc.SelectedIndex > 0)
+			if (cbNamBatDau.SelectedIndex > 0 || cbNamKetThuc.SelectedIndex > 0)
 			{
-				int namBatDau = int.Parse(cbNamBatDau.SelectedItem.ToString());
-				int namKetThuc = int.Parse(cbNamKetThuc.SelectedItem.ToString());
+				string query = @"
+        SELECT 
+            QDSo AS [Quyết định số], 
+            type AS [Loại dự án], 
+            nameProject AS [Tên đề tài], 
+            cap AS [Cấp đề tài], 
+            nameResearchers AS [Người nghiên cứu chính], 
+            nameMember AS [Thành viên tham gia], 
+            ngayBatDau AS [Ngày bắt đầu], 
+            ngayKetThuc AS [Ngày kết thúc],
+            status AS [Trạng thái]
+        FROM dbo.Projects
+        WHERE 1 = 1"; // Luôn đúng, để nối thêm điều kiện sau
 
-				// Kiểm tra điều kiện hợp lệ
-				if (namBatDau > namKetThuc)
+				List<object> parameters = new List<object>();
+
+				if (cbNamBatDau.SelectedIndex > 0)
 				{
-					MessageBox.Show("Năm bắt đầu không được lớn hơn năm kết thúc!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return;
+					int namBatDau = int.Parse(cbNamBatDau.SelectedItem.ToString());
+					query += " AND YEAR(ngayBatDau) >= @namBatDau";
+					parameters.Add(namBatDau);
 				}
 
-				// Lọc dữ liệu từ cơ sở dữ liệu
-				string query = @"
-            SELECT 
-                QDSo AS [Quyết định số], 
-                type AS [Loại dự án], 
-                nameProject AS [Tên đề tài], 
-                cap AS [Cấp đề tài], 
-                nameResearchers AS [Người nghiên cứu chính], 
-                nameMember AS [Thành viên tham gia], 
-                ngayBatDau AS [Ngày bắt đầu], 
-                ngayKetThuc AS [Ngày kết thúc],
-                status AS [Trạng thái]
-            FROM dbo.Projects
-            WHERE YEAR(ngayBatDau) >= @namBatDau AND YEAR(ngayKetThuc) <= @namKetThuc";
+				if (cbNamKetThuc.SelectedIndex > 0)
+				{
+					int namKetThuc = int.Parse(cbNamKetThuc.SelectedItem.ToString());
+					query += " AND YEAR(ngayKetThuc) <= @namKetThuc";
+					parameters.Add(namKetThuc);
+				}
+
+				// Kiểm tra điều kiện hợp lệ
+				if (cbNamBatDau.SelectedIndex > 0 && cbNamKetThuc.SelectedIndex > 0)
+				{
+					int namBatDau = int.Parse(cbNamBatDau.SelectedItem.ToString());
+					int namKetThuc = int.Parse(cbNamKetThuc.SelectedItem.ToString());
+
+					if (namBatDau > namKetThuc)
+					{
+						MessageBox.Show("Năm bắt đầu không được lớn hơn năm kết thúc!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						return;
+					}
+				}
 
 				// Lấy dữ liệu từ database
-				DataTable filteredData = DataProvider.Instance.ExecuteQuery(query, new object[] { namBatDau, namKetThuc });
+				DataTable filteredData = DataProvider.Instance.ExecuteQuery(query, parameters.ToArray());
 
 				// Hiển thị dữ liệu đã lọc
 				dtgvDSDT.DataSource = filteredData;
-
 			}
-			
+			else
+			{
+				// Nếu cả hai ComboBox đều chọn "Chọn", tải lại toàn bộ dữ liệu
+				LoadProjectsData();
+			}
+
+
 		}
 
 
 
+
+		#endregion
+		#region cbb status
+		private void LoadTrangThaiComboBox()
+		{
+			cbTrangThai.Items.Clear();
+			cbTrangThai.Items.Add("Tất cả"); // Mục mặc định không lọc
+			cbTrangThai.Items.Add("Đã nghiệm thu");
+			cbTrangThai.Items.Add("Đã hủy");
+			cbTrangThai.Items.Add("Đang thực hiện");
+
+			cbTrangThai.SelectedIndex = 0; // Chọn mặc định "Tất cả"
+		}
+
+		private void cbTrangThai_SelectedIndexChanged(object sender, EventArgs e)
+		{
+		
+			// Kiểm tra lựa chọn
+			string selectedStatus = cbTrangThai.SelectedItem.ToString();
+
+			// Nếu chọn "Tất cả", nạp lại toàn bộ dữ liệu
+			if (selectedStatus == "Tất cả")
+			{
+				LoadProjectsData();
+				return;
+			}
+
+			// Lọc dữ liệu từ cơ sở dữ liệu theo trạng thái
+			string query = @"
+        SELECT 
+            QDSo AS [Quyết định số], 
+            type AS [Loại dự án], 
+            nameProject AS [Tên đề tài], 
+            cap AS [Cấp đề tài], 
+            nameResearchers AS [Người nghiên cứu chính], 
+            nameMember AS [Thành viên tham gia], 
+            ngayBatDau AS [Ngày bắt đầu], 
+            ngayKetThuc AS [Ngày kết thúc],
+            status AS [Trạng thái]
+        FROM dbo.Projects
+        WHERE status = @status";
+
+			// Thực thi truy vấn và hiển thị dữ liệu lọc
+			DataTable filteredData = DataProvider.Instance.ExecuteQuery(query, new object[] { selectedStatus });
+			dtgvDSDT.DataSource = filteredData;
+		}
 
 		#endregion
 	}

@@ -51,6 +51,8 @@
 			this.txtTimKiemTheoDeTai = new System.Windows.Forms.TextBox();
 			this.txtSoDT = new System.Windows.Forms.TextBox();
 			this.btnXemChiTiet = new System.Windows.Forms.Button();
+			this.label5 = new System.Windows.Forms.Label();
+			this.cbTrangThai = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).BeginInit();
 			this.contextMenuStripAddMember.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -84,7 +86,7 @@
 			// thêmThànhViênToolStripMenuItem
 			// 
 			this.thêmThànhViênToolStripMenuItem.Name = "thêmThànhViênToolStripMenuItem";
-			this.thêmThànhViênToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+			this.thêmThànhViênToolStripMenuItem.Size = new System.Drawing.Size(187, 24);
 			this.thêmThànhViênToolStripMenuItem.Text = "Thêm thành viên";
 			this.thêmThànhViênToolStripMenuItem.Click += new System.EventHandler(this.thêmThànhViênToolStripMenuItem_Click);
 			// 
@@ -112,6 +114,8 @@
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.Transparent;
+			this.panel1.Controls.Add(this.cbTrangThai);
+			this.panel1.Controls.Add(this.label5);
 			this.panel1.Controls.Add(this.rdAll);
 			this.panel1.Controls.Add(this.pnCap);
 			this.panel1.Controls.Add(this.rdGV);
@@ -315,6 +319,26 @@
 			this.btnXemChiTiet.UseVisualStyleBackColor = false;
 			this.btnXemChiTiet.Click += new System.EventHandler(this.btnXemChiTiet_Click);
 			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label5.Location = new System.Drawing.Point(9, 58);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(199, 31);
+			this.label5.TabIndex = 41;
+			this.label5.Text = "Chọn trạng thái";
+			// 
+			// cbTrangThai
+			// 
+			this.cbTrangThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbTrangThai.FormattingEnabled = true;
+			this.cbTrangThai.Location = new System.Drawing.Point(227, 61);
+			this.cbTrangThai.Name = "cbTrangThai";
+			this.cbTrangThai.Size = new System.Drawing.Size(182, 33);
+			this.cbTrangThai.TabIndex = 42;
+			this.cbTrangThai.SelectedIndexChanged += new System.EventHandler(this.cbTrangThai_SelectedIndexChanged);
+			// 
 			// fDSDT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -367,5 +391,7 @@
 		private System.Windows.Forms.ToolStripMenuItem thêmThànhViênToolStripMenuItem;
 		private System.Windows.Forms.Panel pnCap;
 		private System.Windows.Forms.RadioButton rdAll;
+		private System.Windows.Forms.ComboBox cbTrangThai;
+		private System.Windows.Forms.Label label5;
 	}
 }
