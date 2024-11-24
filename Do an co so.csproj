@@ -106,6 +106,12 @@
     <Compile Include="fHome.Designer.cs">
       <DependentUpon>fHome.cs</DependentUpon>
     </Compile>
+    <Compile Include="fRemoveMembers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fRemoveMembers.Designer.cs">
+      <DependentUpon>fRemoveMembers.cs</DependentUpon>
+    </Compile>
     <Compile Include="fSua.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fHome.resx">
       <DependentUpon>fHome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fRemoveMembers.resx">
+      <DependentUpon>fRemoveMembers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fSua.resx">
       <DependentUpon>fSua.cs</DependentUpon>

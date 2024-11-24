@@ -37,8 +37,8 @@
 			this.label6 = new System.Windows.Forms.Label();
 			this.lbQD = new System.Windows.Forms.Label();
 			this.txtQD = new System.Windows.Forms.TextBox();
-			this.dtpNgayPheDuyet = new System.Windows.Forms.DateTimePicker();
-			this.dtpNgayHetHan = new System.Windows.Forms.DateTimePicker();
+			this.dtpNgayBatDau = new System.Windows.Forms.DateTimePicker();
+			this.dtpNgayKetThuc = new System.Windows.Forms.DateTimePicker();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.rdGiaoVien = new System.Windows.Forms.RadioButton();
@@ -116,6 +116,7 @@
 			this.txtTenThanhVien.Name = "txtTenThanhVien";
 			this.txtTenThanhVien.Size = new System.Drawing.Size(494, 90);
 			this.txtTenThanhVien.TabIndex = 13;
+			this.txtTenThanhVien.TextChanged += new System.EventHandler(this.txtTenThanhVien_TextChanged);
 			// 
 			// label6
 			// 
@@ -124,9 +125,9 @@
 			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label6.Location = new System.Drawing.Point(720, 190);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(145, 25);
+			this.label6.Size = new System.Drawing.Size(134, 25);
 			this.label6.TabIndex = 16;
-			this.label6.Text = "Tháng bắt đầu:";
+			this.label6.Text = "Ngày bắt đầu:";
 			// 
 			// lbQD
 			// 
@@ -149,25 +150,25 @@
 			this.txtQD.Size = new System.Drawing.Size(494, 30);
 			this.txtQD.TabIndex = 21;
 			// 
-			// dtpNgayPheDuyet
+			// dtpNgayBatDau
 			// 
-			this.dtpNgayPheDuyet.CustomFormat = "MM/yyyy";
-			this.dtpNgayPheDuyet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.dtpNgayPheDuyet.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.dtpNgayPheDuyet.Location = new System.Drawing.Point(884, 190);
-			this.dtpNgayPheDuyet.Name = "dtpNgayPheDuyet";
-			this.dtpNgayPheDuyet.Size = new System.Drawing.Size(163, 30);
-			this.dtpNgayPheDuyet.TabIndex = 22;
+			this.dtpNgayBatDau.CustomFormat = "dd/MM/yyyy";
+			this.dtpNgayBatDau.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dtpNgayBatDau.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+			this.dtpNgayBatDau.Location = new System.Drawing.Point(884, 190);
+			this.dtpNgayBatDau.Name = "dtpNgayBatDau";
+			this.dtpNgayBatDau.Size = new System.Drawing.Size(163, 30);
+			this.dtpNgayBatDau.TabIndex = 22;
 			// 
-			// dtpNgayHetHan
+			// dtpNgayKetThuc
 			// 
-			this.dtpNgayHetHan.CustomFormat = "MM/yyyy";
-			this.dtpNgayHetHan.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.dtpNgayHetHan.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.dtpNgayHetHan.Location = new System.Drawing.Point(884, 239);
-			this.dtpNgayHetHan.Name = "dtpNgayHetHan";
-			this.dtpNgayHetHan.Size = new System.Drawing.Size(163, 30);
-			this.dtpNgayHetHan.TabIndex = 24;
+			this.dtpNgayKetThuc.CustomFormat = "dd/MM/yyyy";
+			this.dtpNgayKetThuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.dtpNgayKetThuc.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+			this.dtpNgayKetThuc.Location = new System.Drawing.Point(884, 239);
+			this.dtpNgayKetThuc.Name = "dtpNgayKetThuc";
+			this.dtpNgayKetThuc.Size = new System.Drawing.Size(163, 30);
+			this.dtpNgayKetThuc.TabIndex = 24;
 			// 
 			// label5
 			// 
@@ -176,9 +177,9 @@
 			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label5.Location = new System.Drawing.Point(720, 239);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(148, 25);
+			this.label5.Size = new System.Drawing.Size(137, 25);
 			this.label5.TabIndex = 23;
-			this.label5.Text = "Tháng kết thúc:";
+			this.label5.Text = "Ngày kết thúc:";
 			// 
 			// label7
 			// 
@@ -230,11 +231,12 @@
 			// 
 			this.txtKinhPhi.Anchor = System.Windows.Forms.AnchorStyles.Top;
 			this.txtKinhPhi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-			this.txtKinhPhi.Location = new System.Drawing.Point(852, 141);
+			this.txtKinhPhi.Location = new System.Drawing.Point(884, 141);
 			this.txtKinhPhi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.txtKinhPhi.Name = "txtKinhPhi";
-			this.txtKinhPhi.Size = new System.Drawing.Size(463, 30);
+			this.txtKinhPhi.Size = new System.Drawing.Size(431, 30);
 			this.txtKinhPhi.TabIndex = 30;
+			this.txtKinhPhi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKinhPhi_KeyPress);
 			// 
 			// btnThem
 			// 
@@ -245,6 +247,7 @@
 			this.btnThem.TabIndex = 33;
 			this.btnThem.Text = "Thêm";
 			this.btnThem.UseVisualStyleBackColor = true;
+			this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
 			// 
 			// btnHuy
 			// 
@@ -288,9 +291,9 @@
 			this.Controls.Add(this.rdSinhVien);
 			this.Controls.Add(this.rdGiaoVien);
 			this.Controls.Add(this.label7);
-			this.Controls.Add(this.dtpNgayHetHan);
+			this.Controls.Add(this.dtpNgayKetThuc);
 			this.Controls.Add(this.label5);
-			this.Controls.Add(this.dtpNgayPheDuyet);
+			this.Controls.Add(this.dtpNgayBatDau);
 			this.Controls.Add(this.lbQD);
 			this.Controls.Add(this.txtQD);
 			this.Controls.Add(this.label6);
@@ -302,7 +305,6 @@
 			this.Controls.Add(this.txtTenDeTai);
 			this.Controls.Add(this.panel3);
 			this.Name = "fThemDeTaiMoi";
-			this.Text = " ";
 			this.Load += new System.EventHandler(this.fThemDeTaiMoi_Load);
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
@@ -321,8 +323,8 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label lbQD;
 		private System.Windows.Forms.TextBox txtQD;
-		private System.Windows.Forms.DateTimePicker dtpNgayPheDuyet;
-		private System.Windows.Forms.DateTimePicker dtpNgayHetHan;
+		private System.Windows.Forms.DateTimePicker dtpNgayBatDau;
+		private System.Windows.Forms.DateTimePicker dtpNgayKetThuc;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label7;
 		private System.Windows.Forms.RadioButton rdGiaoVien;

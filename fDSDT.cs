@@ -92,7 +92,7 @@ ORDER BY LastNameInitial, Name;
 		}
 
 
-		void LoadProjectsData()
+	public	void LoadProjectsData()
 		{
 
 
@@ -158,6 +158,40 @@ ORDER BY LastNameInitial, Name;
 							LoadProjectsData();  // Đảm bảo dữ liệu trong DataGridView được làm mới
 						}
 					}
+				}
+			}
+		}
+		private void xóaThànhViênToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (dtgvDSDT.CurrentRow != null)
+			{
+				string memberList = dtgvDSDT.CurrentRow.Cells["Thành viên tham gia"].Value?.ToString();
+				if (!string.IsNullOrEmpty(memberList))
+				{
+					List<string> members = memberList.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+													 .Select(m => m.Trim())
+													 .ToList();
+
+					using (var removeMemberForm = new fRemoveMembers(members))
+					{
+						if (removeMemberForm.ShowDialog() == DialogResult.OK)
+						{
+							// Xóa các thành viên được chọn
+							List<string> membersToRemove = removeMemberForm.MembersToRemove;
+							members = members.Except(membersToRemove).ToList();
+
+							// Cập nhật ô "Thành viên tham gia"
+							dtgvDSDT.CurrentRow.Cells["Thành viên tham gia"].Value = string.Join(", ", members);
+
+							// Lưu thay đổi vào cơ sở dữ liệu
+							string projectQDSo = dtgvDSDT.CurrentRow.Cells["Quyết định số"].Value.ToString();
+							UpdateProjectMembers(projectQDSo, string.Join(", ", members));
+						}
+					}
+				}
+				else
+				{
+					MessageBox.Show("Không có thành viên nào để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
 		}
@@ -431,5 +465,7 @@ ORDER BY LastNameInitial, Name;
 		}
 
 		#endregion
+
+		
 	}
 }

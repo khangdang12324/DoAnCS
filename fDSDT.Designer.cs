@@ -53,6 +53,7 @@
 			this.btnXemChiTiet = new System.Windows.Forms.Button();
 			this.label5 = new System.Windows.Forms.Label();
 			this.cbTrangThai = new System.Windows.Forms.ComboBox();
+			this.xóaThànhViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).BeginInit();
 			this.contextMenuStripAddMember.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -76,9 +77,10 @@
 			// 
 			this.contextMenuStripAddMember.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.contextMenuStripAddMember.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.thêmThànhViênToolStripMenuItem});
+            this.thêmThànhViênToolStripMenuItem,
+            this.xóaThànhViênToolStripMenuItem});
 			this.contextMenuStripAddMember.Name = "contextMenuStripAddMember";
-			this.contextMenuStripAddMember.Size = new System.Drawing.Size(188, 28);
+			this.contextMenuStripAddMember.Size = new System.Drawing.Size(211, 80);
 			this.contextMenuStripAddMember.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAddMember_Opening);
 			this.contextMenuStripAddMember.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStripAddMember_ItemClicked);
 			this.contextMenuStripAddMember.Click += new System.EventHandler(this.contextMenuStripAddMember_Click);
@@ -339,6 +341,13 @@
 			this.cbTrangThai.TabIndex = 42;
 			this.cbTrangThai.SelectedIndexChanged += new System.EventHandler(this.cbTrangThai_SelectedIndexChanged);
 			// 
+			// xóaThànhViênToolStripMenuItem
+			// 
+			this.xóaThànhViênToolStripMenuItem.Name = "xóaThànhViênToolStripMenuItem";
+			this.xóaThànhViênToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+			this.xóaThànhViênToolStripMenuItem.Text = "Xóa thành viên";
+			this.xóaThànhViênToolStripMenuItem.Click += new System.EventHandler(this.xóaThànhViênToolStripMenuItem_Click);
+			// 
 			// fDSDT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -393,5 +402,6 @@
 		private System.Windows.Forms.RadioButton rdAll;
 		private System.Windows.Forms.ComboBox cbTrangThai;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.ToolStripMenuItem xóaThànhViênToolStripMenuItem;
 	}
 }
