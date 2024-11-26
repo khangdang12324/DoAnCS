@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,10 @@ namespace Do_an_co_so
 				MessageBox.Show("Vui lòng nhập đầy đủ thông tin bắt buộc!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
+			TextInfo textInfo = new CultureInfo("vi-VN", false).TextInfo;
+			tenChuNhiem = textInfo.ToTitleCase(tenChuNhiem.ToLower());  // Chuyển chữ cái đầu tên chủ nhiệm thành chữ hoa
+			thanhVien = textInfo.ToTitleCase(thanhVien.ToLower()); // Chuyển chữ cái đầu tên thành viên thành chữ hoa
+
 
 			// Chuỗi kết nối đến cơ sở dữ liệu
 			string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True";
@@ -117,6 +122,11 @@ namespace Do_an_co_so
 			{	
 				e.Handled = true;
 			}
+		}
+
+		private void txtKinhPhi_TextChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

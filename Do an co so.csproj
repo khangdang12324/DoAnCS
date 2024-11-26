@@ -76,6 +76,12 @@
     <Compile Include="fAddMember.Designer.cs">
       <DependentUpon>fAddMember.cs</DependentUpon>
     </Compile>
+    <Compile Include="fChuNhiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fChuNhiem.Designer.cs">
+      <DependentUpon>fChuNhiem.cs</DependentUpon>
+    </Compile>
     <Compile Include="fDangKy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,12 @@
     </Compile>
     <Compile Include="fDSDT.Designer.cs">
       <DependentUpon>fDSDT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fGiaHan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fGiaHan.Designer.cs">
+      <DependentUpon>fGiaHan.cs</DependentUpon>
     </Compile>
     <Compile Include="fHome.cs">
       <SubType>Form</SubType>
@@ -146,6 +158,9 @@
     <EmbeddedResource Include="fAddMember.resx">
       <DependentUpon>fAddMember.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fChuNhiem.resx">
+      <DependentUpon>fChuNhiem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fDangKy.resx">
       <DependentUpon>fDangKy.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,6 +173,9 @@
     <EmbeddedResource Include="fDSDT.resx">
       <DependentUpon>fDSDT.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fGiaHan.resx">
+      <DependentUpon>fGiaHan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fHome.resx">
       <DependentUpon>fHome.cs</DependentUpon>

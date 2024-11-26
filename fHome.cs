@@ -40,6 +40,10 @@ namespace Do_an_co_so
 
 			btnDeTaiKH.ForeColor = Color.Black;
 
+			btnChuNhiem.BackColor = Color.White;
+
+			btnChuNhiem.ForeColor = Color.Black;
+
 		}
 
 
@@ -84,5 +88,14 @@ namespace Do_an_co_so
 			btnDeTaiKH.BackColor = Color.Black;
 			btnDeTaiKH.ForeColor = Color.White;
 		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			OpenChildForm(new fChuNhiem());
+			ResetButtonColors();
+			btnChuNhiem.BackColor = Color.Black;
+			btnChuNhiem.ForeColor = Color.White;
+		}
+
 	}
 }

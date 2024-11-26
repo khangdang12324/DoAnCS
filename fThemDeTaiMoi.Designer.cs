@@ -236,6 +236,7 @@
 			this.txtKinhPhi.Name = "txtKinhPhi";
 			this.txtKinhPhi.Size = new System.Drawing.Size(431, 30);
 			this.txtKinhPhi.TabIndex = 30;
+			this.txtKinhPhi.TextChanged += new System.EventHandler(this.txtKinhPhi_TextChanged);
 			this.txtKinhPhi.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtKinhPhi_KeyPress);
 			// 
 			// btnThem

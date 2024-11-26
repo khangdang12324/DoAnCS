@@ -464,8 +464,81 @@ ORDER BY LastNameInitial, Name;
 			dtgvDSDT.DataSource = filteredData;
 		}
 
-		#endregion
 
-		
+		#endregion
+		#region GiaHan
+		private void contextMenuStripGiaHan_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+		{
+
+		}
+		#endregion
+		private void dtgvDSDT_MouseDown(object sender, MouseEventArgs e)
+		{
+			// Lấy thông tin ô được nhấp
+			DataGridView.HitTestInfo hit = dtgvDSDT.HitTest(e.X, e.Y);
+
+			if (e.Button == MouseButtons.Right && hit.Type == DataGridViewHitTestType.Cell)
+			{
+				// Chọn ô được nhấp
+				dtgvDSDT.ClearSelection();
+				dtgvDSDT[hit.ColumnIndex, hit.RowIndex].Selected = true;
+
+				// Kiểm tra tên cột để hiển thị menu phù hợp
+				string columnName = dtgvDSDT.Columns[hit.ColumnIndex].HeaderText;
+
+				if (columnName == "Thành viên tham gia") // Cột Thêm thành viên
+				{
+					dtgvDSDT.ContextMenuStrip = contextMenuStripAddMember; // Hiển thị menu thêm thành viên
+				}
+				else if (columnName == "Ngày kết thúc") // Cột Gia hạn đề tài
+				{
+					dtgvDSDT.ContextMenuStrip = contextMenuStripGiaHan; // Hiển thị menu gia hạn
+				}
+				else
+				{
+					dtgvDSDT.ContextMenuStrip = null; // Không hiển thị menu
+				}
+			}
+			else
+			{
+				dtgvDSDT.ContextMenuStrip = null; // Không hiển thị menu nếu không nhấp chuột phải
+			}
+		}
+
+
+		private void giaHạnToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			// Lấy ô hiện tại được chọn
+			if (dtgvDSDT.SelectedCells.Count > 0)
+			{
+				DataGridViewCell selectedCell = dtgvDSDT.SelectedCells[0];
+				int rowIndex = selectedCell.RowIndex;
+
+				// Lấy giá trị Quyết định số (hoặc bất kỳ khóa chính nào) từ hàng đó
+				string qdSo = dtgvDSDT.Rows[rowIndex].Cells["Quyết định số"].Value.ToString();
+
+				// Lấy giá trị hiện tại của cột "Ngày kết thúc"
+				DateTime ngayKetThuc = Convert.ToDateTime(selectedCell.Value);
+
+				// Hiển thị Form Gia Hạn
+				using (fGiaHan formGiaHan = new fGiaHan())
+				{
+					if (formGiaHan.ShowDialog() == DialogResult.OK)
+					{
+						// Cộng thêm số ngày được nhập
+						int soNgayGiaHan = formGiaHan.SoNgayGiaHan;
+						DateTime ngayGiaHanMoi = ngayKetThuc.AddDays(soNgayGiaHan);
+
+						// Cập nhật vào cơ sở dữ liệu
+						string query = "UPDATE Projects SET ngayKetThuc = @ngayKetThuc WHERE QDSo = @QDSo";
+						DataProvider.Instance.ExecuteNonQuery(query, new object[] { ngayGiaHanMoi, qdSo });
+
+						// Cập nhật lại DataGridView
+						selectedCell.Value = ngayGiaHanMoi;
+						MessageBox.Show($"Đề tài đã được gia hạn thêm {soNgayGiaHan} ngày, ngày kết thúc mới là {ngayGiaHanMoi:dd/MM/yyyy}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+				}
+			}
+		}
 	}
 }
