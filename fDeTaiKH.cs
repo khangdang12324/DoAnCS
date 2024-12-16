@@ -35,44 +35,40 @@ namespace Do_an_co_so
 		private void ResetButtonColors()
 		{
 
-			btnDSDT.BackColor = Color.White;
-			btnThemDTKH.BackColor = Color.White;
-			btnThongKe.BackColor = Color.White;
-			//----------------------------------------
-			btnDSDT.ForeColor = Color.Black;
-			btnThemDTKH.ForeColor = Color.Black;
-			btnThongKe.ForeColor = Color.Black;
+			//btnDSDT.BackColor = Color.White;
+			//btnThemDTKH.BackColor = Color.White;
+		
+			////----------------------------------------
+			//btnDSDT.ForeColor = Color.Black;
+			//btnThemDTKH.ForeColor = Color.Black;
 		}
 		private void fDeTaiKH_Load(object sender, EventArgs e)
 		{
 			OpenChildForm(new fDSDT());
 			ResetButtonColors();
-			btnDSDT.BackColor = Color.Black;
-			btnDSDT.ForeColor = Color.White;
+			//btnDSDT.BackColor = Color.Black;
+			//btnDSDT.ForeColor = Color.White;
 
 		}
 		private void button2_Click(object sender, EventArgs e)
 		{
-			OpenChildForm(new fThongKe());
-			ResetButtonColors();
-			btnThongKe.BackColor = Color.Black;
-			btnThongKe.ForeColor = Color.White;
+	
 		}
 
 		private void btnDSDT_Click(object sender, EventArgs e)
 		{
 			OpenChildForm(new fDSDT());
 			ResetButtonColors();
-			btnDSDT.BackColor = Color.Black;
-			btnDSDT.ForeColor = Color.White;
+			//btnDSDT.BackColor = Color.Black;
+			//btnDSDT.ForeColor = Color.White;
 		}
 
 		private void btnThemDTKH_Click(object sender, EventArgs e)
 		{
 			OpenChildForm(new fThemDeTaiMoi());
 			ResetButtonColors();
-			btnThemDTKH.BackColor = Color.Black;
-			btnThemDTKH.ForeColor = Color.White;
+			//btnThemDTKH.BackColor = Color.Black;
+			//btnThemDTKH.ForeColor = Color.White;
 		}
 
 		private void thốngKêTheoDanhSáchToolStripMenuItem_Click(object sender, EventArgs e)

@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.dtgvProjects = new System.Windows.Forms.DataGridView();
-			this.btnThem = new System.Windows.Forms.Button();
 			this.btnXoa = new System.Windows.Forms.Button();
 			this.btnLuu = new System.Windows.Forms.Button();
 			this.txtQD = new System.Windows.Forms.TextBox();
@@ -56,18 +55,6 @@
 			this.dtgvProjects.CurrentCellDirtyStateChanged += new System.EventHandler(this.dtgvProjects_CurrentCellDirtyStateChanged);
 			this.dtgvProjects.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtgvProjects_KeyDown);
 			this.dtgvProjects.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dtgvProjects_PreviewKeyDown);
-			// 
-			// btnThem
-			// 
-			this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnThem.Location = new System.Drawing.Point(1330, 75);
-			this.btnThem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.btnThem.Name = "btnThem";
-			this.btnThem.Size = new System.Drawing.Size(121, 41);
-			this.btnThem.TabIndex = 1;
-			this.btnThem.Text = "Thêm";
-			this.btnThem.UseVisualStyleBackColor = true;
-			this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
 			// 
 			// btnXoa
 			// 
@@ -124,7 +111,6 @@
 			this.Controls.Add(this.txtQD);
 			this.Controls.Add(this.btnLuu);
 			this.Controls.Add(this.btnXoa);
-			this.Controls.Add(this.btnThem);
 			this.Controls.Add(this.dtgvProjects);
 			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.Name = "fQuanLyNCKH";
@@ -143,7 +129,6 @@
 		#endregion
 
 		private System.Windows.Forms.DataGridView dtgvProjects;
-		private System.Windows.Forms.Button btnThem;
 		private System.Windows.Forms.Button btnXoa;
 		private System.Windows.Forms.Button btnLuu;
 		private System.Windows.Forms.TextBox txtQD;

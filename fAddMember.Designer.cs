@@ -50,7 +50,7 @@ namespace Do_an_co_so
 			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label2.Location = new System.Drawing.Point(519, 74);
+			this.label2.Location = new System.Drawing.Point(363, 63);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(337, 36);
 			this.label2.TabIndex = 8;
@@ -60,7 +60,7 @@ namespace Do_an_co_so
 			// 
 			this.txtAddMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtAddMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtAddMember.Location = new System.Drawing.Point(311, 142);
+			this.txtAddMember.Location = new System.Drawing.Point(106, 120);
 			this.txtAddMember.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.txtAddMember.Name = "txtAddMember";
 			this.txtAddMember.Size = new System.Drawing.Size(691, 41);
@@ -70,7 +70,7 @@ namespace Do_an_co_so
 			// btnThem
 			// 
 			this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnThem.Location = new System.Drawing.Point(1049, 142);
+			this.btnThem.Location = new System.Drawing.Point(837, 120);
 			this.btnThem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.btnThem.Name = "btnThem";
 			this.btnThem.Size = new System.Drawing.Size(121, 41);
@@ -83,7 +83,7 @@ namespace Do_an_co_so
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1351, 520);
+			this.ClientSize = new System.Drawing.Size(1120, 422);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.txtAddMember);
 			this.Controls.Add(this.btnThem);

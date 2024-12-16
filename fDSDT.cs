@@ -22,6 +22,7 @@ namespace Do_an_co_so
 			LoadComboBoxData();
 			LoadTrangThaiComboBox();
 			LoadProjectsData();
+
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -92,26 +93,32 @@ ORDER BY LastNameInitial, Name;
 		}
 
 
-	public	void LoadProjectsData()
+		public void LoadProjectsData()
 		{
 
 
 			string query = @"
-        SELECT 
-            QDSo AS [Quyết định số], 
-            type AS [Loại dự án], 
-            nameProject AS [Tên đề tài], 
-			cap AS[Cấp đề tài],
-            nameResearchers AS [Người nghiên cứu chính], 
-            nameMember AS [Thành viên tham gia], 
-            ngayBatDau AS [Ngày bắt đầu], 
-            ngayKetThuc AS [Ngày kết thúc],
-			status AS [Trạng thái]
-        FROM dbo.Projects;
+    	SELECT 
+		QDSo AS [Quyết định số],
+		type AS [Loại dự án],
+		nameProject AS [Tên đề tài],
+		cap AS [Cấp đề tài],
+		nameResearchers AS [Người nghiên cứu chính],
+		nameMember AS [Thành viên tham gia],
+		status AS [Trạng thái],
+ FORMAT(ngayBatDau, 'MM-yyyy') AS [Tháng bắt đầu],
+    FORMAT(ngayKetThuc, 'MM-yyyy') AS [Tháng kết thúc],
+		FORMAT(ngayGiaHan, 'MM-yyyy') AS [Tháng gia hạn],
+		FORMAT(ngayNghiemThu, 'MM-yyyy') AS [Tháng nghiệm thu],
+		kinhPhi AS [Kinh phí],
+		artical AS [Bài báo liên quan],
+		prize AS [Giải thưởng]
+	FROM Projects;
 			  ";
 
 
 			dtgvDSDT.DataSource = DataProvider.Instance.ExecuteQuery(query);
+
 		}
 
 		private void thêmThànhViênToolStripMenuItem_Click(object sender, EventArgs e)
@@ -128,6 +135,27 @@ ORDER BY LastNameInitial, Name;
 			string updateQuery = "UPDATE Projects SET nameMember = @updatedMembers WHERE QDSo = @projectQDSo";
 			DataProvider.Instance.ExecuteNonQuery(updateQuery, new object[] { updateMembers, projectQDSo });
 		}
+		void UpdateNgayNghiemThu(string qdSo)
+		{
+			string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True"; // Đảm bảo thay đổi theo kết nối của bạn
+
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				connection.Open();
+
+				using (SqlCommand cmd = new SqlCommand("USP_UpdateNgayNghiemThu", connection))
+				{
+					cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+					// Thêm tham số vào thủ tục
+					cmd.Parameters.Add(new SqlParameter("@QDSo", qdSo));
+
+					// Thực thi thủ tục
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+
 		private void contextMenuStripAddMember_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
 		{
 			if (e.ClickedItem.Text == "Thêm thành viên")
@@ -433,7 +461,7 @@ ORDER BY LastNameInitial, Name;
 
 		private void cbTrangThai_SelectedIndexChanged(object sender, EventArgs e)
 		{
-		
+
 			// Kiểm tra lựa chọn
 			string selectedStatus = cbTrangThai.SelectedItem.ToString();
 
@@ -471,7 +499,7 @@ ORDER BY LastNameInitial, Name;
 		{
 
 		}
-		#endregion
+
 		private void dtgvDSDT_MouseDown(object sender, MouseEventArgs e)
 		{
 			// Lấy thông tin ô được nhấp
@@ -490,9 +518,13 @@ ORDER BY LastNameInitial, Name;
 				{
 					dtgvDSDT.ContextMenuStrip = contextMenuStripAddMember; // Hiển thị menu thêm thành viên
 				}
-				else if (columnName == "Ngày kết thúc") // Cột Gia hạn đề tài
+				else if (columnName == "Tháng kết thúc") // Cột Gia hạn đề tài
 				{
 					dtgvDSDT.ContextMenuStrip = contextMenuStripGiaHan; // Hiển thị menu gia hạn
+				}
+				else if (columnName == "Trạng thái") // Cột Gia hạn đề tài
+				{
+					dtgvDSDT.ContextMenuStrip = contextMenuStripTrangThai; // Hiển thị menu gia hạn
 				}
 				else
 				{
@@ -527,17 +559,197 @@ ORDER BY LastNameInitial, Name;
 					{
 						// Cộng thêm số ngày được nhập
 						int soNgayGiaHan = formGiaHan.SoNgayGiaHan;
-						DateTime ngayGiaHanMoi = ngayKetThuc.AddDays(soNgayGiaHan);
+						DateTime ngayGiaHanMoi = ngayKetThuc.AddMonths(soNgayGiaHan);
 
 						// Cập nhật vào cơ sở dữ liệu
-						string query = "UPDATE Projects SET ngayKetThuc = @ngayKetThuc WHERE QDSo = @QDSo";
+						string query = "UPDATE Projects SET ngayGiaHan = @ngayGiaHan WHERE QDSo = @QDSo";
 						DataProvider.Instance.ExecuteNonQuery(query, new object[] { ngayGiaHanMoi, qdSo });
 
+						LoadProjectsData();
 						// Cập nhật lại DataGridView
 						selectedCell.Value = ngayGiaHanMoi;
-						MessageBox.Show($"Đề tài đã được gia hạn thêm {soNgayGiaHan} ngày, ngày kết thúc mới là {ngayGiaHanMoi:dd/MM/yyyy}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						MessageBox.Show($"Đề tài đã được gia hạn thêm {soNgayGiaHan} tháng, tháng kết thúc mới là {ngayGiaHanMoi:MM/yyyy}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 				}
+			}
+		}
+		#endregion
+
+		private void txtTimKiemTheoDeTai_TextChanged(object sender, EventArgs e)
+		{
+			// Kiểm tra nếu DataGridView đã được gắn dữ liệu
+			if (dtgvDSDT.DataSource is DataTable dataTable)
+			{
+				string filter = txtTimKiemTheoDeTai.Text.Trim(); // Lấy giá trị trong ô tìm kiếm
+				if (!string.IsNullOrEmpty(filter))
+				{
+					// Áp dụng bộ lọc (tìm kiếm không phân biệt hoa thường)
+					dataTable.DefaultView.RowFilter = $"[Tên đề tài] LIKE '%{filter}%'";
+				}
+				else
+				{
+					// Nếu ô tìm kiếm trống, xóa bộ lọc
+					dataTable.DefaultView.RowFilter = string.Empty;
+				}
+			}
+		}
+
+		private void contextMenuStripTrangThai_Opening(object sender, CancelEventArgs e)
+		{
+
+		}
+
+		private void contextMenuStripGiaHan_Opening(object sender, CancelEventArgs e)
+		{
+
+		}
+
+		private void hủyDựÁnToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			// Lấy ô hiện tại được chọn
+			if (dtgvDSDT.SelectedCells.Count > 0)
+			{
+				int rowIndex = dtgvDSDT.SelectedCells[0].RowIndex;
+
+				// Lấy thông tin dự án
+				string qdSo = dtgvDSDT.Rows[rowIndex].Cells["Quyết định số"].Value.ToString();
+				string nameProject = dtgvDSDT.Rows[rowIndex].Cells["Tên đề tài"].Value.ToString();
+				string status = dtgvDSDT.Rows[rowIndex].Cells["Trạng thái"].Value.ToString();
+
+				// Kiểm tra trạng thái hiện tại
+				if (status != "Đang thực hiện")
+				{
+					MessageBox.Show("Chỉ có thể hủy các dự án đang thực hiện!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				}
+
+				// Hiển thị hộp thoại xác nhận
+				DialogResult result = MessageBox.Show(
+					$"Bạn có chắc chắn muốn hủy dự án:\n\nQuyết định số: {qdSo}\nTên đề tài: {nameProject}\n\nThao tác này không thể hoàn tác!",
+					"Xác nhận hủy dự án",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Warning
+				);
+
+				// Nếu người dùng chọn "Yes", thực hiện cập nhật
+				if (result == DialogResult.Yes)
+				{
+					// Cập nhật trạng thái trong cơ sở dữ liệu
+					string query = "UPDATE Projects SET status = N'Đã hủy' WHERE QDSo = @QDSo";
+					DataProvider.Instance.ExecuteNonQuery(query, new object[] { qdSo });
+
+					// Làm mới DataGridView
+					LoadProjectsData();
+
+					// Thông báo thành công
+					MessageBox.Show($"Dự án \"{nameProject}\" đã được hủy thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+			}
+			else
+			{
+				MessageBox.Show("Vui lòng chọn dự án cần hủy!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+		private void CompleteProject(string qdSo)
+		{
+			// Câu lệnh SQL cập nhật trạng thái và ngày nghiệm thu
+			string query = "UPDATE Projects SET status = N'Đã hoàn thành', ngayNghiemThu = GETDATE() WHERE QDSo = @QDSo";
+
+			// Thực thi câu lệnh SQL
+			DataProvider.Instance.ExecuteNonQuery(query, new object[] { qdSo });
+		}
+
+		private void hoànThànhToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (dtgvDSDT.SelectedCells.Count > 0)
+			{
+				int rowIndex = dtgvDSDT.SelectedCells[0].RowIndex;
+
+				// Lấy dữ liệu từ ô được chọn
+				string qdSo = dtgvDSDT.Rows[rowIndex].Cells["Quyết định số"].Value?.ToString();
+				string nameProject = dtgvDSDT.Rows[rowIndex].Cells["Tên đề tài"].Value?.ToString();
+				string status = dtgvDSDT.Rows[rowIndex].Cells["Trạng thái"].Value?.ToString();
+
+				// Kiểm tra trạng thái hiện tại
+				if (status != "Đang thực hiện")
+				{
+					MessageBox.Show("Chỉ có thể hoàn thành các dự án đang thực hiện!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return;
+				}
+
+				// Xác nhận từ người dùng
+				var result = MessageBox.Show(
+					$"Bạn có chắc chắn muốn hoàn thành dự án này:\n\nQuyết định số: {qdSo}\nTên đề tài: {nameProject}\nThao tác này không thể hoàn tác!",
+					"Xác nhận hoàn thành",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Warning);
+
+				if (result == DialogResult.Yes)
+				{
+					try
+					{
+						// Gọi hàm cập nhật trạng thái
+						CompleteProject(qdSo);
+
+						// Làm mới dữ liệu hiển thị
+						LoadProjectsData();
+
+						// Thông báo thành công
+						MessageBox.Show($"Dự án \"{nameProject}\" đã hoàn thành!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					catch (Exception ex)
+					{
+						// Hiển thị thông báo lỗi
+						MessageBox.Show($"Có lỗi xảy ra: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+			}
+			else
+			{
+				MessageBox.Show("Vui lòng chọn dự án cần hoàn thành!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+
+
+		private void tiếpTụcDựÁnToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			// Lấy ô hiện tại được chọn
+			if (dtgvDSDT.SelectedCells.Count > 0)
+			{
+				int rowIndex = dtgvDSDT.SelectedCells[0].RowIndex;
+
+				// Lấy thông tin dự án
+				string qdSo = dtgvDSDT.Rows[rowIndex].Cells["Quyết định số"].Value.ToString();
+				string nameProject = dtgvDSDT.Rows[rowIndex].Cells["Tên đề tài"].Value.ToString();
+				string status = dtgvDSDT.Rows[rowIndex].Cells["Trạng thái"].Value.ToString();
+
+		
+
+				// Hiển thị hộp thoại xác nhận
+				DialogResult result = MessageBox.Show(
+					$"Bạn có chắc chắn muốn cập nhật dự án:\n\nQuyết định số: {qdSo}\nTên đề tài: {nameProject}\n\nThao tác này không thể hoàn tác!",
+					"Xác nhận cập nhật dự án",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Warning
+				);
+
+				// Nếu người dùng chọn "Yes", thực hiện cập nhật
+				if (result == DialogResult.Yes)
+				{
+					// Cập nhật trạng thái trong cơ sở dữ liệu
+					string query = "UPDATE Projects SET status = N'Đang thực hiện' WHERE QDSo = @QDSo";
+					DataProvider.Instance.ExecuteNonQuery(query, new object[] { qdSo });
+
+					// Làm mới DataGridView
+					LoadProjectsData();
+
+					// Thông báo thành công
+					MessageBox.Show($"Dự án \"{nameProject}\" đã được cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+			}
+			else
+			{
+				MessageBox.Show("Vui lòng chọn dự án cần cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
 	}

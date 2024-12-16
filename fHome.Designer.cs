@@ -39,6 +39,7 @@
 			this.thôngTinTàiKhoảngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.thôngTinCáNhânToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.btnThemDT = new System.Windows.Forms.Button();
 			this.panelHome.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panelTop.SuspendLayout();
@@ -50,16 +51,18 @@
 			this.panelMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.panelMain.Location = new System.Drawing.Point(165, 106);
+			this.panelMain.Location = new System.Drawing.Point(168, 106);
 			this.panelMain.Name = "panelMain";
-			this.panelMain.Size = new System.Drawing.Size(1226, 783);
+			this.panelMain.Size = new System.Drawing.Size(1509, 783);
 			this.panelMain.TabIndex = 0;
+			this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
 			// 
 			// panelHome
 			// 
 			this.panelHome.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
 			this.panelHome.BackColor = System.Drawing.Color.White;
+			this.panelHome.Controls.Add(this.btnThemDT);
 			this.panelHome.Controls.Add(this.btnChuNhiem);
 			this.panelHome.Controls.Add(this.btnDeTaiKH);
 			this.panelHome.Controls.Add(this.pictureBox1);
@@ -77,7 +80,7 @@
 			this.btnChuNhiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnChuNhiem.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.btnChuNhiem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnChuNhiem.Location = new System.Drawing.Point(1, 249);
+			this.btnChuNhiem.Location = new System.Drawing.Point(3, 329);
 			this.btnChuNhiem.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.btnChuNhiem.Name = "btnChuNhiem";
 			this.btnChuNhiem.Size = new System.Drawing.Size(163, 76);
@@ -95,7 +98,7 @@
 			this.btnDeTaiKH.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnDeTaiKH.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.btnDeTaiKH.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnDeTaiKH.Location = new System.Drawing.Point(3, 169);
+			this.btnDeTaiKH.Location = new System.Drawing.Point(1, 169);
 			this.btnDeTaiKH.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.btnDeTaiKH.Name = "btnDeTaiKH";
 			this.btnDeTaiKH.Size = new System.Drawing.Size(163, 76);
@@ -122,9 +125,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.panelTop.BackColor = System.Drawing.SystemColors.ButtonHighlight;
 			this.panelTop.Controls.Add(this.menuStrip1);
-			this.panelTop.Location = new System.Drawing.Point(165, 0);
+			this.panelTop.Location = new System.Drawing.Point(168, 0);
 			this.panelTop.Name = "panelTop";
-			this.panelTop.Size = new System.Drawing.Size(1226, 107);
+			this.panelTop.Size = new System.Drawing.Size(1509, 107);
 			this.panelTop.TabIndex = 2;
 			this.panelTop.Paint += new System.Windows.Forms.PaintEventHandler(this.panelTop_Paint);
 			// 
@@ -135,7 +138,7 @@
 			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.thôngTinTàiKhoảngToolStripMenuItem});
-			this.menuStrip1.Location = new System.Drawing.Point(1004, 9);
+			this.menuStrip1.Location = new System.Drawing.Point(1284, 9);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(216, 36);
 			this.menuStrip1.TabIndex = 0;
@@ -165,11 +168,29 @@
 			this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
 			this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click_1);
 			// 
+			// btnThemDT
+			// 
+			this.btnThemDT.BackColor = System.Drawing.Color.White;
+			this.btnThemDT.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+			this.btnThemDT.FlatAppearance.BorderSize = 0;
+			this.btnThemDT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnThemDT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnThemDT.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.btnThemDT.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnThemDT.Location = new System.Drawing.Point(3, 249);
+			this.btnThemDT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.btnThemDT.Name = "btnThemDT";
+			this.btnThemDT.Size = new System.Drawing.Size(163, 76);
+			this.btnThemDT.TabIndex = 6;
+			this.btnThemDT.Text = "THÊM ĐỀ TÀI";
+			this.btnThemDT.UseVisualStyleBackColor = false;
+			this.btnThemDT.Click += new System.EventHandler(this.btnThemDT_Click);
+			// 
 			// fHome
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1394, 891);
+			this.ClientSize = new System.Drawing.Size(1680, 891);
 			this.Controls.Add(this.panelTop);
 			this.Controls.Add(this.panelHome);
 			this.Controls.Add(this.panelMain);
@@ -199,5 +220,6 @@
 		private System.Windows.Forms.ToolStripMenuItem thôngTinCáNhânToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
 		private System.Windows.Forms.Button btnChuNhiem;
+		private System.Windows.Forms.Button btnThemDT;
 	}
 }

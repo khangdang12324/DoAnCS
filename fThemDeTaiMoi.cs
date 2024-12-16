@@ -31,7 +31,7 @@ namespace Do_an_co_so
 			string qdSo = txtQD.Text.Trim(); // Quyết định số
 			string tenDeTai = txtTenDeTai.Text.Trim(); // Tên đề tài
 			string tenChuNhiem = txtTenChuNhiem.Text.Trim(); // Tên chủ nhiệm
-			string thanhVien = txtTenThanhVien.Text.Trim(); // Tên thành viên
+			string thanhVien = cbSLTV.Text.Trim(); // Tên thành viên
 			string phanLoai = rdGiaoVien.Checked ? "Giáo viên" : "Sinh viên"; // Phân loại
 			DateTime ngayBatDau = dtpNgayBatDau.Value; // Ngày bắt đầu
 			DateTime ngayKetThuc = dtpNgayKetThuc.Value; // Ngày kết thúc
@@ -95,15 +95,18 @@ namespace Do_an_co_so
 					insertCommand.Parameters.AddWithValue("@type", phanLoai);
 					insertCommand.Parameters.AddWithValue("@ngayBatDau", ngayBatDau);
 					insertCommand.Parameters.AddWithValue("@ngayKetThuc", ngayKetThuc);
+				
 					insertCommand.Parameters.AddWithValue("@kinhPhi", kinhPhi);
 
 					insertCommand.ExecuteNonQuery();
 				}
 			}
 
-				// Cập nhật lại DataGridView
 			
-				MessageBox.Show("Thêm thành công!");
+			// Cập nhật lại DataGridView
+			
+
+			MessageBox.Show("Thêm thành công!");
 
 
 			
@@ -125,6 +128,47 @@ namespace Do_an_co_so
 		}
 
 		private void txtKinhPhi_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnThemTV_Click(object sender, EventArgs e)
+		{
+			fAddMember fAddMember = new fAddMember();
+			fAddMember.Show();
+		}
+
+		private void cbSLTV_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			// Clear tất cả ComboBox hiện tại trong flowLayoutPanelThanhVien
+			flowLayoutPanelThanhVien.Controls.Clear();
+
+			// Lấy số lượng thành viên được chọn
+			if (int.TryParse(cbSLTV.SelectedItem.ToString(), out int soLuong))
+			{
+				for (int i = 0; i < soLuong; i++)
+				{
+					// Tạo ComboBox mới
+					ComboBox cbb = new ComboBox();
+					cbb.Width = 300; // Đặt độ rộng tùy ý
+					cbb.Items.Add("Thành viên 1");
+					cbb.Items.Add("Thành viên 2");
+					cbb.Items.Add("Thành viên 3");
+					cbb.SelectedIndex = 0;
+
+					// Thêm ComboBox vào FlowLayoutPanel
+					flowLayoutPanelThanhVien.Controls.Add(cbb);
+				}
+			}
+		}
+
+		private void btnThemTVMoi_Click(object sender, EventArgs e)
+		{
+			Form fAddMember = new fAddMember();
+			fAddMember.ShowDialog();
+		}
+
+		private void flowLayoutPanelThanhVien_Paint(object sender, PaintEventArgs e)
 		{
 
 		}

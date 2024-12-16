@@ -30,20 +30,22 @@ namespace Do_an_co_so
 
 
 			string query = @"
-        SELECT 
-            QDSo AS [Quyết định số], 
-            type AS [Loại dự án], 
-            nameProject AS [Tên đề tài], 
-			cap AS[Cấp đề tài],
-            nameResearchers AS [Người nghiên cứu chính], 
-            nameMember AS [Thành viên tham gia], 
-            ngayBatDau AS [Ngày bắt đầu], 
-            ngayKetThuc AS [Ngày kết thúc], 
-            kinhPhi AS [Kinh phí], 
-            artical AS [Bài báo liên quan], 
-            prize AS [Giải thưởng], 
-           status AS [Trạng thái]
-        FROM dbo.Projects;
+	SELECT 
+		QDSo AS [Quyết định số],
+		type AS [Loại dự án],
+		nameProject AS [Tên đề tài],
+		cap AS [Cấp],
+		nameResearchers AS [Người nghiên cứu chính],
+		nameMember AS [Thành viên tham gia],
+		status AS [Trạng thái],
+		ngayBatDau AS [Ngày bắt đầu],
+		ngayKetThuc AS [Ngày kết thúc],
+		ngayGiaHan AS [Ngày gia hạn],
+		ngayNghiemThu AS [Ngày nghiệm thu],
+		kinhPhi AS [Kinh phí],
+		artical AS [Bài báo liên quan],
+		prize AS [Giải thưởng]
+	FROM Projects;
     ";
 
 

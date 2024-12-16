@@ -43,6 +43,9 @@ namespace Do_an_co_so
 			btnChuNhiem.BackColor = Color.White;
 
 			btnChuNhiem.ForeColor = Color.Black;
+			btnThemDT.BackColor = Color.White;
+
+			btnThemDT.ForeColor = Color.Black;
 
 		}
 
@@ -75,7 +78,7 @@ namespace Do_an_co_so
 
 		private void btnDeTaiKH_Click(object sender, EventArgs e)
 		{
-			OpenChildForm(new fDeTaiKH());
+			OpenChildForm(new fDSDT());
 			ResetButtonColors();
 			btnDeTaiKH.BackColor = Color.Black;
 			btnDeTaiKH.ForeColor = Color.White;
@@ -84,7 +87,7 @@ namespace Do_an_co_so
 		private void fHome_Load(object sender, EventArgs e)
 		{
 
-			OpenChildForm(new fDeTaiKH ());
+			OpenChildForm(new fDSDT ());
 			btnDeTaiKH.BackColor = Color.Black;
 			btnDeTaiKH.ForeColor = Color.White;
 		}
@@ -97,5 +100,17 @@ namespace Do_an_co_so
 			btnChuNhiem.ForeColor = Color.White;
 		}
 
+		private void panelMain_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void btnThemDT_Click(object sender, EventArgs e)
+		{
+			OpenChildForm(new fThemDeTaiMoi());
+			ResetButtonColors();
+			btnThemDT.BackColor = Color.Black;
+			btnThemDT.ForeColor = Color.White;
+		}
 	}
 }

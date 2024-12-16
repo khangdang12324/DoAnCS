@@ -41,8 +41,13 @@ namespace Do_an_co_so
 			}
 			else
 			{
-				MessageBox.Show("Vui lòng nhập số ngày gia hạn hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Vui lòng nhập số tháng gia hạn hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void txtNgayGiaHan_TextChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
