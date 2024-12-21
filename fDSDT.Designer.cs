@@ -52,13 +52,14 @@
 			this.cbNamBatDau = new System.Windows.Forms.ComboBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtTimKiemTheoDeTai = new System.Windows.Forms.TextBox();
-			this.btnXemChiTiet = new System.Windows.Forms.Button();
 			this.contextMenuStripGiaHan = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.giaHạnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStripTrangThai = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.hủyDựÁnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.hoànThànhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tiếpTụcDựÁnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.label6 = new System.Windows.Forms.Label();
+			this.flowLayoutPanelTongDuAn = new System.Windows.Forms.FlowLayoutPanel();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).BeginInit();
 			this.contextMenuStripAddMember.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -77,9 +78,10 @@
 			this.dtgvDSDT.Name = "dtgvDSDT";
 			this.dtgvDSDT.RowHeadersWidth = 51;
 			this.dtgvDSDT.RowTemplate.Height = 24;
-			this.dtgvDSDT.Size = new System.Drawing.Size(1870, 522);
+			this.dtgvDSDT.Size = new System.Drawing.Size(1870, 448);
 			this.dtgvDSDT.TabIndex = 0;
 			this.dtgvDSDT.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDSDT_CellContentClick);
+			this.dtgvDSDT.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDSDT_CellDoubleClick);
 			this.dtgvDSDT.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtgvDSDT_MouseDown);
 			// 
 			// contextMenuStripAddMember
@@ -337,24 +339,6 @@
 			this.txtTimKiemTheoDeTai.TabIndex = 38;
 			this.txtTimKiemTheoDeTai.TextChanged += new System.EventHandler(this.txtTimKiemTheoDeTai_TextChanged);
 			// 
-			// btnXemChiTiet
-			// 
-			this.btnXemChiTiet.BackColor = System.Drawing.Color.White;
-			this.btnXemChiTiet.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
-			this.btnXemChiTiet.FlatAppearance.BorderSize = 0;
-			this.btnXemChiTiet.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnXemChiTiet.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnXemChiTiet.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.btnXemChiTiet.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.btnXemChiTiet.Location = new System.Drawing.Point(1659, 251);
-			this.btnXemChiTiet.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.btnXemChiTiet.Name = "btnXemChiTiet";
-			this.btnXemChiTiet.Size = new System.Drawing.Size(214, 38);
-			this.btnXemChiTiet.TabIndex = 38;
-			this.btnXemChiTiet.Text = "Xem chi tiết";
-			this.btnXemChiTiet.UseVisualStyleBackColor = false;
-			this.btnXemChiTiet.Click += new System.EventHandler(this.btnXemChiTiet_Click);
-			// 
 			// contextMenuStripGiaHan
 			// 
 			this.contextMenuStripGiaHan.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -386,37 +370,54 @@
 			// hủyDựÁnToolStripMenuItem
 			// 
 			this.hủyDựÁnToolStripMenuItem.Name = "hủyDựÁnToolStripMenuItem";
-			this.hủyDựÁnToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+			this.hủyDựÁnToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
 			this.hủyDựÁnToolStripMenuItem.Text = "Hủy dự án";
 			this.hủyDựÁnToolStripMenuItem.Click += new System.EventHandler(this.hủyDựÁnToolStripMenuItem_Click);
 			// 
 			// hoànThànhToolStripMenuItem
 			// 
 			this.hoànThànhToolStripMenuItem.Name = "hoànThànhToolStripMenuItem";
-			this.hoànThànhToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+			this.hoànThànhToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
 			this.hoànThànhToolStripMenuItem.Text = "Hoàn thành";
 			this.hoànThànhToolStripMenuItem.Click += new System.EventHandler(this.hoànThànhToolStripMenuItem_Click);
 			// 
 			// tiếpTụcDựÁnToolStripMenuItem
 			// 
 			this.tiếpTụcDựÁnToolStripMenuItem.Name = "tiếpTụcDựÁnToolStripMenuItem";
-			this.tiếpTụcDựÁnToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+			this.tiếpTụcDựÁnToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
 			this.tiếpTụcDựÁnToolStripMenuItem.Text = "Tiếp tục dự án";
 			this.tiếpTụcDựÁnToolStripMenuItem.Click += new System.EventHandler(this.tiếpTụcDựÁnToolStripMenuItem_Click);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label6.Location = new System.Drawing.Point(11, 792);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(194, 31);
+			this.label6.TabIndex = 43;
+			this.label6.Text = "Tổng số dự án:";
+			// 
+			// flowLayoutPanelTongDuAn
+			// 
+			this.flowLayoutPanelTongDuAn.Location = new System.Drawing.Point(211, 795);
+			this.flowLayoutPanelTongDuAn.Name = "flowLayoutPanelTongDuAn";
+			this.flowLayoutPanelTongDuAn.Size = new System.Drawing.Size(201, 28);
+			this.flowLayoutPanelTongDuAn.TabIndex = 44;
 			// 
 			// fDSDT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1917, 825);
-			this.Controls.Add(this.btnXemChiTiet);
+			this.Controls.Add(this.flowLayoutPanelTongDuAn);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.txtTimKiemTheoDeTai);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.dtgvDSDT);
 			this.Name = "fDSDT";
-			this.Text = "fDSDT";
 			this.Load += new System.EventHandler(this.fDSDT_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).EndInit();
 			this.contextMenuStripAddMember.ResumeLayout(false);
@@ -443,7 +444,6 @@
 		private System.Windows.Forms.ComboBox cbNamBatDau;
 		private System.Windows.Forms.TextBox txtTimKiemTheoDeTai;
 		private System.Windows.Forms.ComboBox cbTenChuNhiem;
-		private System.Windows.Forms.Button btnXemChiTiet;
 		private System.Windows.Forms.RadioButton rdSV;
 		private System.Windows.Forms.RadioButton rdGV;
 		private System.Windows.Forms.RadioButton rdCapTinh;
@@ -465,5 +465,7 @@
 		private System.Windows.Forms.ToolStripMenuItem hủyDựÁnToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem hoànThànhToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem tiếpTụcDựÁnToolStripMenuItem;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTongDuAn;
 	}
 }

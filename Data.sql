@@ -13,10 +13,11 @@ CREATE TABLE Account
     PassWord NVARCHAR(100) NOT NULL
 )
 GO  
-DROP TABLE dbo.Projects
+
 	-- Tạo lại bảng Projects với cấu trúc mới
 CREATE TABLE Projects
 (
+ 
     QDSo NVARCHAR(100),
     type NVARCHAR(100),
     nameProject NVARCHAR(100) DEFAULT N'Chưa đặt tên',
@@ -36,17 +37,17 @@ GO
 
 	-- Thêm dữ liệu mẫu vào bảng Projects
 -- Nhập dữ liệu vào bảng Projects
-INSERT INTO Projects (QDSo, type, nameProject, nameResearchers, nameMember, status, ngayBatDau, ngayKetThuc, ngayGiaHan,ngayNghiemThu,kinhPhi, artical, prize)
+INSERT INTO Projects ( QDSo, type, nameProject, nameResearchers, nameMember, status, ngayBatDau, ngayKetThuc, ngayGiaHan,ngayNghiemThu,kinhPhi, artical, prize)
 VALUES 
 (N'825/QĐ-ĐHĐL', N'Sinh viên', N'Xây dựng ứng dụng hỗ trợ phụ huynh tra cứu tình hình học tập của sinh viên', 
 N'Trần Nguyễn Đông Gon', N'Trịnh Nguyễn Hồng Phi, Nguyễn Khánh Linh, Lê Sỹ Hùng', N'Đang thực hiện', 
 '2024-01-01', '2024-12-01',NULL,	NULL, 5000000, NULL, NULL),
 
-(N'825/QĐ-ĐHĐL', N'Sinh viên', N'Xây dựng hệ thống điểm danh sinh viên dựa trên nhận diện khuôn mặt', 
+(N'876/QĐ-ĐHĐL', N'Sinh viên', N'Xây dựng hệ thống điểm danh sinh viên dựa trên nhận diện khuôn mặt', 
 N'Nguyễn Bảo Long', N'Nguyễn Danh, Lê Hoàng Nhật, Nguyễn Tùng Hiếu, Trần Hữu Khai Quan', N'Đang thực hiện', 
 '2023-01-01', '2024-02-01',NULL,	NULL, 5000000, NULL, NULL),
 
-(N'825/QĐ-ĐHĐL', N'Sinh viên', N'Mô phỏng, xác định thông lượng neutron nhiệt và neutron trên nhiệt lò phản ứng hạt nhân Đà Lạt', 
+(N'874/QĐ-ĐHĐL', N'Sinh viên', N'Mô phỏng, xác định thông lượng neutron nhiệt và neutron trên nhiệt lò phản ứng hạt nhân Đà Lạt', 
 N'Trần Nguyễn Kha', N'Trần Đăng Quang, Cao Hiệp Hòa', N'Đang thực hiện', 
 '2024-01-01', '2024-6-01', NULL,	NULL,5000000, NULL, NULL);
 GO
@@ -60,7 +61,7 @@ GO
 		type AS [Loại dự án],
 		nameProject AS [Tên đề tài],
 		cap AS [Cấp đề tài],
-		nameResearchers AS [Người nghiên cứu chính],
+		nameResearchers AS [Tên chủ nhiệm],
 		nameMember AS [Thành viên tham gia],
 		status AS [Trạng thái],
  FORMAT(ngayBatDau, 'MM-yyyy') AS [Tháng bắt đầu],
@@ -72,19 +73,21 @@ GO
 		prize AS [Giải thưởng]
 	FROM Projects;
 	GO
+
+
 	--BẢNG MEMBERS
 	CREATE TABLE Members (
     MemberID INT PRIMARY KEY IDENTITY(1,1),
     Name NVARCHAR(100) NOT NULL
 );
 GO
-
+SELECT DISTINCT Name FROM dbo.Members
 -- Thêm dữ liệu mẫu cho bảng Members
 INSERT INTO Members (Name) VALUES 
-(N'Nguyễn Văn A'),
-(N'Lê Thị B'),
-(N'Trần Văn C'),
-(N'Nguyễn Thị D');
+(N'Nguyễn Thị Lương'),
+(N'Hoàng Như Phương'),
+(N'Nguyễn Hữu Khánh'),
+(N'Trần Thị Ngọc Kim');
 GO
 -- Bang quan he projects va members
 CREATE TABLE ProjectMembers (
@@ -97,10 +100,10 @@ GO
 
 -- Ví dụ thêm dữ liệu mẫu cho bảng ProjectMembers
 INSERT INTO ProjectMembers (ProjectID, MemberID) VALUES 
-(N'QD001', 1),
-(N'QD005', 2),
-(N'QD002', 3),
-(N'QD003', 4);
+(N'825/QĐ-ĐHĐL', 1),
+(N'825/QĐ-ĐHĐL', 2),
+(N'825/QĐ-ĐHĐL', 3),
+(N'825/QĐ-ĐHĐL', 4);
 GO
 
 

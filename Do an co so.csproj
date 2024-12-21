@@ -130,11 +130,23 @@
     <Compile Include="fSua.Designer.cs">
       <DependentUpon>fSua.cs</DependentUpon>
     </Compile>
+    <Compile Include="fThemBaiBao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fThemBaiBao.Designer.cs">
+      <DependentUpon>fThemBaiBao.cs</DependentUpon>
+    </Compile>
     <Compile Include="fThemDeTaiMoi.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fThemDeTaiMoi.Designer.cs">
       <DependentUpon>fThemDeTaiMoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fXemChiTiet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fXemChiTiet.Designer.cs">
+      <DependentUpon>fXemChiTiet.cs</DependentUpon>
     </Compile>
     <Compile Include="Modify.cs" />
     <Compile Include="Program.cs" />
@@ -146,6 +158,7 @@
       <DependentUpon>fQuenMatKhau.cs</DependentUpon>
     </Compile>
     <Compile Include="TaiKhoan.cs" />
+    <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="fAccountProfile.resx">
       <DependentUpon>fAccountProfile.cs</DependentUpon>
     </EmbeddedResource>
@@ -180,8 +193,14 @@
     <EmbeddedResource Include="fSua.resx">
       <DependentUpon>fSua.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fThemBaiBao.resx">
+      <DependentUpon>fThemBaiBao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fThemDeTaiMoi.resx">
       <DependentUpon>fThemDeTaiMoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fXemChiTiet.resx">
+      <DependentUpon>fXemChiTiet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -31,7 +31,20 @@ namespace Do_an_co_so
 			string qdSo = txtQD.Text.Trim(); // Quyết định số
 			string tenDeTai = txtTenDeTai.Text.Trim(); // Tên đề tài
 			string tenChuNhiem = txtTenChuNhiem.Text.Trim(); // Tên chủ nhiệm
-			string thanhVien = cbSLTV.Text.Trim(); // Tên thành viên
+															 // Lấy danh sách tất cả thành viên từ các ComboBox trong flowLayoutPanel
+			List<string> danhSachThanhVien = new List<string>();
+
+			foreach (Control control in flowLayoutPanelThanhVien.Controls)
+			{
+				if (control is ComboBox comboBox && comboBox.SelectedItem != null)
+				{
+					danhSachThanhVien.Add(comboBox.SelectedItem.ToString());
+				}
+			}
+
+			// Nối các thành viên thành một chuỗi, ngăn cách bởi dấu phẩy
+			string thanhVien = danhSachThanhVien.Count > 0 ? string.Join(", ", danhSachThanhVien) : "Không có";
+
 			string phanLoai = rdGiaoVien.Checked ? "Giáo viên" : "Sinh viên"; // Phân loại
 			DateTime ngayBatDau = dtpNgayBatDau.Value; // Ngày bắt đầu
 			DateTime ngayKetThuc = dtpNgayKetThuc.Value; // Ngày kết thúc
@@ -104,11 +117,8 @@ namespace Do_an_co_so
 
 			
 			// Cập nhật lại DataGridView
-			
 
 			MessageBox.Show("Thêm thành công!");
-
-
 			
 }
 		// Trong fThemDeTaiMoi
@@ -140,35 +150,124 @@ namespace Do_an_co_so
 
 		private void cbSLTV_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			// Clear tất cả ComboBox hiện tại trong flowLayoutPanelThanhVien
-			flowLayoutPanelThanhVien.Controls.Clear();
-
-			// Lấy số lượng thành viên được chọn
-			if (int.TryParse(cbSLTV.SelectedItem.ToString(), out int soLuong))
+			// Kiểm tra nếu người dùng chọn số lượng thành viên
+			if (int.TryParse(cbSLTV.SelectedItem?.ToString(), out int soLuongThanhVien))
 			{
-				for (int i = 0; i < soLuong; i++)
+				using (SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True"))
 				{
-					// Tạo ComboBox mới
-					ComboBox cbb = new ComboBox();
-					cbb.Width = 300; // Đặt độ rộng tùy ý
-					cbb.Items.Add("Thành viên 1");
-					cbb.Items.Add("Thành viên 2");
-					cbb.Items.Add("Thành viên 3");
-					cbb.SelectedIndex = 0;
+					connection.Open();
+					string query = "SELECT DISTINCT Name FROM dbo.Members ORDER BY Name"; // Truy vấn SQL lấy dữ liệu
+					SqlCommand cmd = new SqlCommand(query, connection);
+					SqlDataReader reader = cmd.ExecuteReader();
 
-					// Thêm ComboBox vào FlowLayoutPanel
-					flowLayoutPanelThanhVien.Controls.Add(cbb);
+					// Lưu danh sách tên thành viên từ cơ sở dữ liệu
+					List<string> danhSachTenThanhVien = new List<string>();
+					while (reader.Read())
+					{
+						danhSachTenThanhVien.Add(reader["Name"].ToString());
+					}
+					reader.Close();
+
+					// Xóa các ComboBox cũ trong FlowLayoutPanel
+					flowLayoutPanelThanhVien.Controls.Clear();
+
+					// Tạo đúng số lượng ComboBox dựa trên lựa chọn
+					for (int i = 0; i < soLuongThanhVien; i++)
+					{
+						ComboBox cbb = new ComboBox
+						{
+							Width = 250, // Đặt độ rộng tùy ý
+							Font = new Font("Microsoft Sans Serif", 12) // Cỡ chữ lớn hơn
+						};
+
+						// Gán danh sách thành viên vào ComboBox
+						cbb.Items.AddRange(danhSachTenThanhVien.ToArray());
+						if (cbb.Items.Count > 0)
+						{
+							cbb.SelectedIndex = 0; // Chọn mục đầu tiên
+						}
+
+						// Thêm ComboBox vào FlowLayoutPanel
+						flowLayoutPanelThanhVien.Controls.Add(cbb);
+					}
+				}
+			}
+			else
+			{
+				// Nếu không chọn hoặc chọn không hợp lệ, xóa tất cả ComboBox
+				flowLayoutPanelThanhVien.Controls.Clear();
+			}
+		}
+
+		private void RefreshComboBoxInFlowLayoutPanel()
+		{
+			// Lấy danh sách tên thành viên từ cơ sở dữ liệu
+			List<string> memberList = new List<string>();
+
+			using (SqlConnection connection = new SqlConnection(@"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True"))
+			{
+				connection.Open();
+				string query = "SELECT DISTINCT Name FROM Members ORDER BY Name";
+				using (SqlCommand cmd = new SqlCommand(query, connection))
+				{
+					using (SqlDataReader reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							memberList.Add(reader["Name"].ToString());
+						}
+					}
+				}
+			}
+
+			// Làm mới danh sách thành viên trong mỗi ComboBox
+			foreach (Control control in flowLayoutPanelThanhVien.Controls)
+			{
+				if (control is ComboBox cbb)
+				{
+					cbb.Items.Clear();
+					cbb.Items.AddRange(memberList.ToArray());
+					if (cbb.Items.Count > 0)
+					{
+						cbb.SelectedIndex = 0; // Chọn mục đầu tiên
+					}
 				}
 			}
 		}
 
+
 		private void btnThemTVMoi_Click(object sender, EventArgs e)
 		{
-			Form fAddMember = new fAddMember();
-			fAddMember.ShowDialog();
+			// Hiển thị form thêm thành viên
+			using (fAddMember fAddMember = new fAddMember())
+			{
+				if (fAddMember.ShowDialog() == DialogResult.Cancel)
+				{
+					RefreshComboBoxInFlowLayoutPanel();
+				}
+			}
 		}
 
+
 		private void flowLayoutPanelThanhVien_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void btnThemBaiBao_Click(object sender, EventArgs e)
+		{
+			/*// Mở form thêm bài báo
+			fThemBaiBao formBaiBao = new fThemBaiBao();
+			formBaiBao.qdSo = txtQD.Text.Trim(); // Gán QĐ số từ form hiện tại
+			if (formBaiBao.ShowDialog() == DialogResult.OK)
+			{
+				MessageBox.Show("Đã thêm bài báo thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				// Nếu cần, tải lại danh sách bài báo liên quan đến đề tài này
+				LoadDanhSachBaiBao();
+			}*/
+		}
+
+		private void txtQD_TextChanged(object sender, EventArgs e)
 		{
 
 		}

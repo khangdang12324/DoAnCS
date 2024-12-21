@@ -51,6 +51,11 @@
 			this.label9 = new System.Windows.Forms.Label();
 			this.btnThemTVMoi = new System.Windows.Forms.Button();
 			this.flowLayoutPanelThanhVien = new System.Windows.Forms.FlowLayoutPanel();
+			this.btnThemBaiBao = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtTenTapChi = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.txtTenBaiBao = new System.Windows.Forms.TextBox();
 			this.panel3.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -128,6 +133,7 @@
 			this.txtQD.Name = "txtQD";
 			this.txtQD.Size = new System.Drawing.Size(494, 30);
 			this.txtQD.TabIndex = 21;
+			this.txtQD.TextChanged += new System.EventHandler(this.txtQD_TextChanged);
 			// 
 			// dtpNgayBatDau
 			// 
@@ -274,7 +280,7 @@
             "8",
             "9",
             "10"});
-			this.cbSLTV.Location = new System.Drawing.Point(382, 394);
+			this.cbSLTV.Location = new System.Drawing.Point(381, 384);
 			this.cbSLTV.Name = "cbSLTV";
 			this.cbSLTV.Size = new System.Drawing.Size(147, 33);
 			this.cbSLTV.TabIndex = 36;
@@ -294,7 +300,7 @@
 			// btnThemTVMoi
 			// 
 			this.btnThemTVMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnThemTVMoi.Location = new System.Drawing.Point(547, 394);
+			this.btnThemTVMoi.Location = new System.Drawing.Point(546, 384);
 			this.btnThemTVMoi.Name = "btnThemTVMoi";
 			this.btnThemTVMoi.Size = new System.Drawing.Size(40, 36);
 			this.btnThemTVMoi.TabIndex = 37;
@@ -305,17 +311,77 @@
 			// flowLayoutPanelThanhVien
 			// 
 			this.flowLayoutPanelThanhVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.flowLayoutPanelThanhVien.Location = new System.Drawing.Point(382, 433);
+			this.flowLayoutPanelThanhVien.Location = new System.Drawing.Point(381, 423);
 			this.flowLayoutPanelThanhVien.Name = "flowLayoutPanelThanhVien";
-			this.flowLayoutPanelThanhVien.Size = new System.Drawing.Size(516, 420);
+			this.flowLayoutPanelThanhVien.Size = new System.Drawing.Size(397, 420);
 			this.flowLayoutPanelThanhVien.TabIndex = 38;
 			this.flowLayoutPanelThanhVien.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanelThanhVien_Paint);
+			// 
+			// btnThemBaiBao
+			// 
+			this.btnThemBaiBao.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnThemBaiBao.Location = new System.Drawing.Point(932, 270);
+			this.btnThemBaiBao.Name = "btnThemBaiBao";
+			this.btnThemBaiBao.Size = new System.Drawing.Size(323, 36);
+			this.btnThemBaiBao.TabIndex = 40;
+			this.btnThemBaiBao.Text = "Thêm bài báo liên quan";
+			this.btnThemBaiBao.UseVisualStyleBackColor = true;
+			this.btnThemBaiBao.Click += new System.EventHandler(this.btnThemBaiBao_Click);
+			// 
+			// label4
+			// 
+			this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+			this.label4.Location = new System.Drawing.Point(777, 512);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(115, 25);
+			this.label4.TabIndex = 44;
+			this.label4.Text = "Tên tạp chí:";
+			// 
+			// txtTenTapChi
+			// 
+			this.txtTenTapChi.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.txtTenTapChi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+			this.txtTenTapChi.Location = new System.Drawing.Point(905, 512);
+			this.txtTenTapChi.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.txtTenTapChi.Multiline = true;
+			this.txtTenTapChi.Name = "txtTenTapChi";
+			this.txtTenTapChi.Size = new System.Drawing.Size(494, 84);
+			this.txtTenTapChi.TabIndex = 43;
+			// 
+			// label10
+			// 
+			this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.label10.AutoSize = true;
+			this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+			this.label10.Location = new System.Drawing.Point(777, 331);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(122, 25);
+			this.label10.TabIndex = 42;
+			this.label10.Text = "Tên bài báo:";
+			// 
+			// txtTenBaiBao
+			// 
+			this.txtTenBaiBao.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.txtTenBaiBao.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+			this.txtTenBaiBao.Location = new System.Drawing.Point(905, 328);
+			this.txtTenBaiBao.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.txtTenBaiBao.Multiline = true;
+			this.txtTenBaiBao.Name = "txtTenBaiBao";
+			this.txtTenBaiBao.Size = new System.Drawing.Size(494, 159);
+			this.txtTenBaiBao.TabIndex = 41;
 			// 
 			// fThemDeTaiMoi
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1900, 858);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.txtTenTapChi);
+			this.Controls.Add(this.label10);
+			this.Controls.Add(this.txtTenBaiBao);
+			this.Controls.Add(this.btnThemBaiBao);
 			this.Controls.Add(this.flowLayoutPanelThanhVien);
 			this.Controls.Add(this.btnThemTVMoi);
 			this.Controls.Add(this.cbSLTV);
@@ -371,5 +437,10 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Button btnThemTVMoi;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelThanhVien;
+		private System.Windows.Forms.Button btnThemBaiBao;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox txtTenTapChi;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.TextBox txtTenBaiBao;
 	}
 }

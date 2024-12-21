@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
@@ -34,19 +35,44 @@ namespace Do_an_co_so
 
 		private void btnThem_Click(object sender, EventArgs e)
 		{
-			if (string.IsNullOrWhiteSpace(NewMemberName))
+			// Kiểm tra xem tên thành viên có hợp lệ không
+			if (string.IsNullOrWhiteSpace(txtAddMember.Text))
 			{
 				MessageBox.Show("Tên thành viên không được để trống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
 
 			// Chuẩn hóa tên thành viên
-			string normalizedMemberName = NormalizeName(NewMemberName);
+			string newMemberName = NormalizeName(txtAddMember.Text.Trim());
 
-			// Gán tên chuẩn hóa vào thuộc tính NewMemberName
-			txtAddMember.Text = normalizedMemberName;
-			DialogResult = DialogResult.OK;
+			// Chuỗi kết nối đến cơ sở dữ liệu
+			string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True";
+
+			try
+			{
+				using (SqlConnection connection = new SqlConnection(connectionString))
+				{
+					connection.Open();
+
+					// Thêm thành viên mới vào bảng Members
+					string query = "INSERT INTO Members (Name) VALUES (@Name)";
+					using (SqlCommand cmd = new SqlCommand(query, connection))
+					{
+						cmd.Parameters.AddWithValue("@Name", newMemberName);
+						cmd.ExecuteNonQuery();
+					}
+
+					MessageBox.Show($"Thành viên \"{newMemberName}\" đã được thêm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+		
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Có lỗi xảy ra khi thêm thành viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
+
 		private string NormalizeName(string name)
 		{
 			// Chuyển từng từ sang dạng chữ hoa chữ cái đầu, chữ thường các chữ cái sau

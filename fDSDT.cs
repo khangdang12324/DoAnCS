@@ -103,7 +103,7 @@ ORDER BY LastNameInitial, Name;
 		type AS [Loại dự án],
 		nameProject AS [Tên đề tài],
 		cap AS [Cấp đề tài],
-		nameResearchers AS [Người nghiên cứu chính],
+		nameResearchers AS [Tên chủ nhiệm],
 		nameMember AS [Thành viên tham gia],
 		status AS [Trạng thái],
  FORMAT(ngayBatDau, 'MM-yyyy') AS [Tháng bắt đầu],
@@ -327,7 +327,7 @@ ORDER BY LastNameInitial, Name;
 				else
 				{
 					LoadProjectsData();
-					ApplyFilterForCBB("Người nghiên cứu chính", "Thành viên tham gia", selectedValue);
+					ApplyFilterForCBB("Tên chủ nhiệm", "Thành viên tham gia", selectedValue);
 				}
 			}
 
@@ -635,7 +635,7 @@ ORDER BY LastNameInitial, Name;
 				if (result == DialogResult.Yes)
 				{
 					// Cập nhật trạng thái trong cơ sở dữ liệu
-					string query = "UPDATE Projects SET status = N'Đã hủy' WHERE QDSo = @QDSo";
+					string query = "UPDATE Projects SET status = N'Đã hủy' WHERE qdSo = @qdSo";
 					DataProvider.Instance.ExecuteNonQuery(query, new object[] { qdSo });
 
 					// Làm mới DataGridView
@@ -650,13 +650,13 @@ ORDER BY LastNameInitial, Name;
 				MessageBox.Show("Vui lòng chọn dự án cần hủy!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
 		}
-		private void CompleteProject(string qdSo)
+		private void CompleteProject(string ID)
 		{
 			// Câu lệnh SQL cập nhật trạng thái và ngày nghiệm thu
-			string query = "UPDATE Projects SET status = N'Đã hoàn thành', ngayNghiemThu = GETDATE() WHERE QDSo = @QDSo";
+			string query = "UPDATE Projects SET status = N'Đã hoàn thành', ngayNghiemThu = GETDATE() WHERE qdSo = @qdSo";
 
 			// Thực thi câu lệnh SQL
-			DataProvider.Instance.ExecuteNonQuery(query, new object[] { qdSo });
+			DataProvider.Instance.ExecuteNonQuery(query, new object[] { ID });
 		}
 
 		private void hoànThànhToolStripMenuItem_Click(object sender, EventArgs e)
@@ -737,7 +737,7 @@ ORDER BY LastNameInitial, Name;
 				if (result == DialogResult.Yes)
 				{
 					// Cập nhật trạng thái trong cơ sở dữ liệu
-					string query = "UPDATE Projects SET status = N'Đang thực hiện' WHERE QDSo = @QDSo";
+					string query = "UPDATE Projects SET status = N'Đang thực hiện' WHERE qdSo = @qdSo";
 					DataProvider.Instance.ExecuteNonQuery(query, new object[] { qdSo });
 
 					// Làm mới DataGridView
@@ -751,6 +751,12 @@ ORDER BY LastNameInitial, Name;
 			{
 				MessageBox.Show("Vui lòng chọn dự án cần cập nhật!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			}
+		}
+
+		private void dtgvDSDT_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			fXemChiTiet fXem = new fXemChiTiet();
+			fXem.ShowDialog();
 		}
 	}
 }
