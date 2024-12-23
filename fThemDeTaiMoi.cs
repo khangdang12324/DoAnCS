@@ -31,6 +31,7 @@ namespace Do_an_co_so
 			string qdSo = txtQD.Text.Trim(); // Quyết định số
 			string tenDeTai = txtTenDeTai.Text.Trim(); // Tên đề tài
 			string tenChuNhiem = txtTenChuNhiem.Text.Trim(); // Tên chủ nhiệm
+			string cap = cbbCap.Text.Trim();
 															 // Lấy danh sách tất cả thành viên từ các ComboBox trong flowLayoutPanel
 			List<string> danhSachThanhVien = new List<string>();
 
@@ -45,7 +46,7 @@ namespace Do_an_co_so
 			// Nối các thành viên thành một chuỗi, ngăn cách bởi dấu phẩy
 			string thanhVien = danhSachThanhVien.Count > 0 ? string.Join(", ", danhSachThanhVien) : "Không có";
 
-			string phanLoai = rdGiaoVien.Checked ? "Giáo viên" : "Sinh viên"; // Phân loại
+			string phanLoai = rdGiaoVien.Checked ? "Giảng viên" : "Sinh viên"; // Phân loại
 			DateTime ngayBatDau = dtpNgayBatDau.Value; // Ngày bắt đầu
 			DateTime ngayKetThuc = dtpNgayKetThuc.Value; // Ngày kết thúc
 			string kinhPhi = txtKinhPhi.Text.Trim(); // Kinh phí
@@ -95,14 +96,15 @@ namespace Do_an_co_so
 				// Nếu không trùng, thực hiện thêm vào cơ sở dữ liệu
 				string insertQuery = @"
             INSERT INTO Projects 
-            (QDSo, nameProject, nameResearchers, nameMember, type, ngayBatDau, ngayKetThuc, status, kinhPhi) 
+            (QDSo, nameProject, nameResearchers, nameMember, type, cap, ngayBatDau, ngayKetThuc, status, kinhPhi) 
             VALUES 
-            (@QDSo, @nameProject, @nameResearchers, @nameMember, @type, @ngayBatDau, @ngayKetThuc, N'Đang thực hiện', @kinhPhi)";
+            (@QDSo, @nameProject, @nameResearchers, @nameMember, @type, @cap, @ngayBatDau, @ngayKetThuc, N'Đang thực hiện', @kinhPhi)";
 
 				using (SqlCommand insertCommand = new SqlCommand(insertQuery, connection))
 				{
 					insertCommand.Parameters.AddWithValue("@QDSo", qdSo);
 					insertCommand.Parameters.AddWithValue("@nameProject", tenDeTai);
+					insertCommand.Parameters.AddWithValue("@cap", cap);
 					insertCommand.Parameters.AddWithValue("@nameResearchers", tenChuNhiem);
 					insertCommand.Parameters.AddWithValue("@nameMember", string.IsNullOrEmpty(thanhVien) ? "Không có" : thanhVien);
 					insertCommand.Parameters.AddWithValue("@type", phanLoai);
@@ -114,8 +116,30 @@ namespace Do_an_co_so
 					insertCommand.ExecuteNonQuery();
 				}
 			}
+			string tenBaiBao = txtTenBaiBao.Text.Trim();
+			string tenTapChi = txtTenTapChi.Text.Trim();
+			string tacGiaChinh = txtTenTacGia.Text.Trim();
+			string tenThanhVienBB = txtTenTVBB.Text.Trim();
+			DateTime ngayDang = dtpNgayDang.Value;
+			using (SqlConnection connection = new SqlConnection(connectionString))
+			{
+				connection.Open();
+				string insertArticleQuery = @"
+            INSERT INTO Articles (QDSo, tenBaiBao, tenTapChi, tenTacGia,tenThanhVienBaiBao, ngayDang) 
+            VALUES (@QDSo, @tenBaiBao, @tenTapChi, @tenTacGia,@tenThanhVienBaiBao, @ngayDang)";
 
-			
+				using (SqlCommand cmd = new SqlCommand(insertArticleQuery, connection))
+				{
+					cmd.Parameters.AddWithValue("@QDSo", qdSo);
+					cmd.Parameters.AddWithValue("@tenBaiBao", tenBaiBao);
+					cmd.Parameters.AddWithValue("@tenTapChi", tenTapChi);
+					cmd.Parameters.AddWithValue("@tenTacGia", tacGiaChinh);
+					cmd.Parameters.AddWithValue("@tenThanhVienBaiBao", tenThanhVienBB);
+					cmd.Parameters.AddWithValue("@ngayDang", ngayDang);
+
+					cmd.ExecuteNonQuery();
+				}
+			}
 			// Cập nhật lại DataGridView
 
 			MessageBox.Show("Thêm thành công!");
@@ -254,20 +278,29 @@ namespace Do_an_co_so
 
 		}
 
-		private void btnThemBaiBao_Click(object sender, EventArgs e)
+		private void txtQD_TextChanged(object sender, EventArgs e)
 		{
-			/*// Mở form thêm bài báo
-			fThemBaiBao formBaiBao = new fThemBaiBao();
-			formBaiBao.qdSo = txtQD.Text.Trim(); // Gán QĐ số từ form hiện tại
-			if (formBaiBao.ShowDialog() == DialogResult.OK)
-			{
-				MessageBox.Show("Đã thêm bài báo thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				// Nếu cần, tải lại danh sách bài báo liên quan đến đề tài này
-				LoadDanhSachBaiBao();
-			}*/
+
 		}
 
-		private void txtQD_TextChanged(object sender, EventArgs e)
+		private void btnHuy_Click(object sender, EventArgs e)
+		{
+			txtQD.Clear();
+			txtTenChuNhiem.Clear();
+			txtTenDeTai.Clear();
+			txtKinhPhi.Clear();
+			txtTenBaiBao.Clear();
+			txtTenTacGia.Clear();
+			txtTenTapChi.Clear();
+			txtTenTVBB.Clear();
+		}
+
+		private void label14_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void rdGiaoVien_CheckedChanged(object sender, EventArgs e)
 		{
 
 		}

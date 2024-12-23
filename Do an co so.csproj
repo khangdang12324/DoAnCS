@@ -76,11 +76,11 @@
     <Compile Include="fAddMember.Designer.cs">
       <DependentUpon>fAddMember.cs</DependentUpon>
     </Compile>
-    <Compile Include="fChuNhiem.cs">
+    <Compile Include="fThongKe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fChuNhiem.Designer.cs">
-      <DependentUpon>fChuNhiem.cs</DependentUpon>
+    <Compile Include="fThongKe.Designer.cs">
+      <DependentUpon>fThongKe.cs</DependentUpon>
     </Compile>
     <Compile Include="fDangKy.cs">
       <SubType>Form</SubType>
@@ -130,12 +130,6 @@
     <Compile Include="fSua.Designer.cs">
       <DependentUpon>fSua.cs</DependentUpon>
     </Compile>
-    <Compile Include="fThemBaiBao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="fThemBaiBao.Designer.cs">
-      <DependentUpon>fThemBaiBao.cs</DependentUpon>
-    </Compile>
     <Compile Include="fThemDeTaiMoi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,8 +159,8 @@
     <EmbeddedResource Include="fAddMember.resx">
       <DependentUpon>fAddMember.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fChuNhiem.resx">
-      <DependentUpon>fChuNhiem.cs</DependentUpon>
+    <EmbeddedResource Include="fThongKe.resx">
+      <DependentUpon>fThongKe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fDangKy.resx">
       <DependentUpon>fDangKy.cs</DependentUpon>
@@ -192,9 +186,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fSua.resx">
       <DependentUpon>fSua.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fThemBaiBao.resx">
-      <DependentUpon>fThemBaiBao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fThemDeTaiMoi.resx">
       <DependentUpon>fThemDeTaiMoi.cs</DependentUpon>

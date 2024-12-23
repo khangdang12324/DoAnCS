@@ -40,9 +40,9 @@ namespace Do_an_co_so
 
 			btnDeTaiKH.ForeColor = Color.Black;
 
-			btnChuNhiem.BackColor = Color.White;
+			btnThongKe.BackColor = Color.White;
 
-			btnChuNhiem.ForeColor = Color.Black;
+			btnThongKe.ForeColor = Color.Black;
 			btnThemDT.BackColor = Color.White;
 
 			btnThemDT.ForeColor = Color.Black;
@@ -94,10 +94,10 @@ namespace Do_an_co_so
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			OpenChildForm(new fChuNhiem());
+			OpenChildForm(new fThongKe());
 			ResetButtonColors();
-			btnChuNhiem.BackColor = Color.Black;
-			btnChuNhiem.ForeColor = Color.White;
+			btnThongKe.BackColor = Color.Black;
+			btnThongKe.ForeColor = Color.White;
 		}
 
 		private void panelMain_Paint(object sender, PaintEventArgs e)

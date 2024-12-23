@@ -30,6 +30,8 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.dtgvDSDT = new System.Windows.Forms.DataGridView();
+			this.contextMenuStripXoaDeTai = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.xóaDựÁnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStripAddMember = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.thêmThànhViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.xóaThànhViênToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,8 +61,10 @@
 			this.hoànThànhToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.tiếpTụcDựÁnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label6 = new System.Windows.Forms.Label();
-			this.flowLayoutPanelTongDuAn = new System.Windows.Forms.FlowLayoutPanel();
+			this.txtTongSo = new System.Windows.Forms.TextBox();
+			this.rdCapCoSo = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).BeginInit();
+			this.contextMenuStripXoaDeTai.SuspendLayout();
 			this.contextMenuStripAddMember.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -73,7 +77,7 @@
 			// 
 			this.dtgvDSDT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.dtgvDSDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dtgvDSDT.ContextMenuStrip = this.contextMenuStripAddMember;
+			this.dtgvDSDT.ContextMenuStrip = this.contextMenuStripXoaDeTai;
 			this.dtgvDSDT.Location = new System.Drawing.Point(3, 294);
 			this.dtgvDSDT.Name = "dtgvDSDT";
 			this.dtgvDSDT.RowHeadersWidth = 51;
@@ -82,7 +86,25 @@
 			this.dtgvDSDT.TabIndex = 0;
 			this.dtgvDSDT.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDSDT_CellContentClick);
 			this.dtgvDSDT.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvDSDT_CellDoubleClick);
+			this.dtgvDSDT.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dtgvDSDT_RowStateChanged);
+			this.dtgvDSDT.SelectionChanged += new System.EventHandler(this.dtgvDSDT_SelectionChanged);
+			this.dtgvDSDT.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dtgvDSDT_MouseClick);
 			this.dtgvDSDT.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dtgvDSDT_MouseDown);
+			// 
+			// contextMenuStripXoaDeTai
+			// 
+			this.contextMenuStripXoaDeTai.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.contextMenuStripXoaDeTai.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xóaDựÁnToolStripMenuItem});
+			this.contextMenuStripXoaDeTai.Name = "contextMenuStripXoaDeTai";
+			this.contextMenuStripXoaDeTai.Size = new System.Drawing.Size(147, 28);
+			// 
+			// xóaDựÁnToolStripMenuItem
+			// 
+			this.xóaDựÁnToolStripMenuItem.Name = "xóaDựÁnToolStripMenuItem";
+			this.xóaDựÁnToolStripMenuItem.Size = new System.Drawing.Size(146, 24);
+			this.xóaDựÁnToolStripMenuItem.Text = "Xóa đề tài";
+			this.xóaDựÁnToolStripMenuItem.Click += new System.EventHandler(this.xóaDựÁnToolStripMenuItem_Click);
 			// 
 			// contextMenuStripAddMember
 			// 
@@ -191,12 +213,13 @@
 			// pnCap
 			// 
 			this.pnCap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.pnCap.Controls.Add(this.rdCapCoSo);
 			this.pnCap.Controls.Add(this.rdCapTruong);
 			this.pnCap.Controls.Add(this.rdCapTinh);
 			this.pnCap.Controls.Add(this.rdCapTrgTrongDiem);
 			this.pnCap.Location = new System.Drawing.Point(1656, 45);
 			this.pnCap.Name = "pnCap";
-			this.pnCap.Size = new System.Drawing.Size(240, 113);
+			this.pnCap.Size = new System.Drawing.Size(240, 128);
 			this.pnCap.TabIndex = 39;
 			this.pnCap.Visible = false;
 			// 
@@ -204,7 +227,7 @@
 			// 
 			this.rdCapTruong.AutoSize = true;
 			this.rdCapTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapTruong.Location = new System.Drawing.Point(11, 5);
+			this.rdCapTruong.Location = new System.Drawing.Point(11, 0);
 			this.rdCapTruong.Name = "rdCapTruong";
 			this.rdCapTruong.Size = new System.Drawing.Size(130, 29);
 			this.rdCapTruong.TabIndex = 38;
@@ -216,7 +239,7 @@
 			// 
 			this.rdCapTinh.AutoSize = true;
 			this.rdCapTinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapTinh.Location = new System.Drawing.Point(11, 75);
+			this.rdCapTinh.Location = new System.Drawing.Point(11, 67);
 			this.rdCapTinh.Name = "rdCapTinh";
 			this.rdCapTinh.Size = new System.Drawing.Size(106, 29);
 			this.rdCapTinh.TabIndex = 38;
@@ -228,7 +251,7 @@
 			// 
 			this.rdCapTrgTrongDiem.AutoSize = true;
 			this.rdCapTrgTrongDiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapTrgTrongDiem.Location = new System.Drawing.Point(11, 40);
+			this.rdCapTrgTrongDiem.Location = new System.Drawing.Point(11, 32);
 			this.rdCapTrgTrongDiem.Name = "rdCapTrgTrongDiem";
 			this.rdCapTrgTrongDiem.Size = new System.Drawing.Size(226, 29);
 			this.rdCapTrgTrongDiem.TabIndex = 38;
@@ -271,6 +294,7 @@
 			this.cbTenChuNhiem.Size = new System.Drawing.Size(410, 33);
 			this.cbTenChuNhiem.TabIndex = 37;
 			this.cbTenChuNhiem.SelectedIndexChanged += new System.EventHandler(this.cbTenChuNhiem_SelectedIndexChanged);
+			this.cbTenChuNhiem.TextChanged += new System.EventHandler(this.cbTenChuNhiem_TextChanged);
 			// 
 			// cbNamKetThuc
 			// 
@@ -398,19 +422,34 @@
 			this.label6.TabIndex = 43;
 			this.label6.Text = "Tổng số dự án:";
 			// 
-			// flowLayoutPanelTongDuAn
+			// txtTongSo
 			// 
-			this.flowLayoutPanelTongDuAn.Location = new System.Drawing.Point(211, 795);
-			this.flowLayoutPanelTongDuAn.Name = "flowLayoutPanelTongDuAn";
-			this.flowLayoutPanelTongDuAn.Size = new System.Drawing.Size(201, 28);
-			this.flowLayoutPanelTongDuAn.TabIndex = 44;
+			this.txtTongSo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtTongSo.Location = new System.Drawing.Point(211, 795);
+			this.txtTongSo.Name = "txtTongSo";
+			this.txtTongSo.ReadOnly = true;
+			this.txtTongSo.Size = new System.Drawing.Size(100, 30);
+			this.txtTongSo.TabIndex = 44;
+			this.txtTongSo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+			// 
+			// rdCapCoSo
+			// 
+			this.rdCapCoSo.AutoSize = true;
+			this.rdCapCoSo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdCapCoSo.Location = new System.Drawing.Point(11, 102);
+			this.rdCapCoSo.Name = "rdCapCoSo";
+			this.rdCapCoSo.Size = new System.Drawing.Size(122, 29);
+			this.rdCapCoSo.TabIndex = 39;
+			this.rdCapCoSo.Text = "Cấp cơ sở";
+			this.rdCapCoSo.UseVisualStyleBackColor = true;
+			this.rdCapCoSo.CheckedChanged += new System.EventHandler(this.rdCapCoSo_CheckedChanged);
 			// 
 			// fDSDT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1917, 825);
-			this.Controls.Add(this.flowLayoutPanelTongDuAn);
+			this.Controls.Add(this.txtTongSo);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.txtTimKiemTheoDeTai);
 			this.Controls.Add(this.panel1);
@@ -420,6 +459,7 @@
 			this.Name = "fDSDT";
 			this.Load += new System.EventHandler(this.fDSDT_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).EndInit();
+			this.contextMenuStripXoaDeTai.ResumeLayout(false);
 			this.contextMenuStripAddMember.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
@@ -466,6 +506,9 @@
 		private System.Windows.Forms.ToolStripMenuItem hoànThànhToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem tiếpTụcDựÁnToolStripMenuItem;
 		private System.Windows.Forms.Label label6;
-		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTongDuAn;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStripXoaDeTai;
+		private System.Windows.Forms.ToolStripMenuItem xóaDựÁnToolStripMenuItem;
+		private System.Windows.Forms.TextBox txtTongSo;
+		private System.Windows.Forms.RadioButton rdCapCoSo;
 	}
 }

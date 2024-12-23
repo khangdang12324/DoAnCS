@@ -14,11 +14,12 @@ CREATE TABLE Account
 )
 GO  
 
+
 	-- Tạo lại bảng Projects với cấu trúc mới
 CREATE TABLE Projects
 (
  
-    QDSo NVARCHAR(100),
+     QDSo NVARCHAR(100) PRIMARY KEY NOT NULL,
     type NVARCHAR(100),
     nameProject NVARCHAR(100) DEFAULT N'Chưa đặt tên',
     cap NVARCHAR(100) DEFAULT N'Cấp trường',
@@ -54,7 +55,6 @@ GO
 	SELECT * FROM dbo.Projects
 
 
-
 	-- Kiểm tra dữ liệu trong bảng Projects
 	SELECT 
 		QDSo AS [Quyết định số],
@@ -68,13 +68,14 @@ GO
     FORMAT(ngayKetThuc, 'MM-yyyy') AS [Tháng kết thúc],
 		FORMAT(ngayGiaHan, 'MM-yyyy') AS [Tháng gia hạn],
 		FORMAT(ngayNghiemThu, 'MM-yyyy') AS [Tháng nghiệm thu],
+	  CASE 
+        WHEN ngayGiaHan IS NULL AND ngayNghiemThu IS NULL THEN NULL
+        ELSE DATEDIFF(MONTH, ngayKetThuc, ISNULL(ngayGiaHan, GETDATE())) 
+    END AS [Số tháng đã gia hạn],
 		kinhPhi AS [Kinh phí],
-		artical AS [Bài báo liên quan],
 		prize AS [Giải thưởng]
 	FROM Projects;
-	GO
-
-
+	
 	--BẢNG MEMBERS
 	CREATE TABLE Members (
     MemberID INT PRIMARY KEY IDENTITY(1,1),
@@ -89,6 +90,9 @@ INSERT INTO Members (Name) VALUES
 (N'Nguyễn Hữu Khánh'),
 (N'Trần Thị Ngọc Kim');
 GO
+SELECT * FROM articles
+
+
 -- Bang quan he projects va members
 CREATE TABLE ProjectMembers (
     ProjectID NVARCHAR(100),
@@ -101,11 +105,41 @@ GO
 -- Ví dụ thêm dữ liệu mẫu cho bảng ProjectMembers
 INSERT INTO ProjectMembers (ProjectID, MemberID) VALUES 
 (N'825/QĐ-ĐHĐL', 1),
-(N'825/QĐ-ĐHĐL', 2),
-(N'825/QĐ-ĐHĐL', 3),
-(N'825/QĐ-ĐHĐL', 4);
-GO
+(N'847/QĐ-ĐHĐL', 2),
+(N'845/QĐ-ĐHĐL', 3),
+(N'823/QĐ-ĐHĐL', 4);
+GO    
 
+
+SELECT * FROM Articles
+CREATE TABLE Articles (
+    ArticleID INT IDENTITY(1,1) PRIMARY KEY, -- Thêm khóa chính tự tăng để quản lý bài báo dễ dàng hơn
+    qdSo NVARCHAR(100) NOT NULL, -- Khóa ngoại tham chiếu đến Projects
+    tenBaiBao NVARCHAR(500), -- Tên bài báo
+    tenTapChi NVARCHAR(500), -- Tên tạp chí
+    tenTacGia NVARCHAR(200), -- Tên tác giả chính
+    tenThanhVienBaiBao NVARCHAR(500), -- Các thành viên tham gia bài báo
+    ngayDang DATE, -- Ngày đăng
+    CONSTRAINT FK_Article_Projects FOREIGN KEY (qdSo) REFERENCES Projects(QDSo) -- Ràng buộc khóa ngoại
+);
+ GO	
+ INSERT INTO dbo.Article
+ (
+     qdSo,
+     tenBaiBao,
+     tenTapChi,
+     tenTacGia,
+     tenThanhVienBaiBao,
+     ngayDang
+ )
+ VALUES
+ (   N'	',  -- qdSo - nvarchar(100)
+     NULL, -- tenBaiBao - nvarchar(500)
+     NULL, -- tenTapChi - nvarchar(500)
+     NULL, -- tenTacGia - nvarchar(200)
+     NULL, -- tenThanhVienBaiBao - nvarchar(max)
+     NULL  -- ngayDang - date
+     )
 
 -- thu tuc	them thanh vien moi
 CREATE PROC	 USP_AddMember

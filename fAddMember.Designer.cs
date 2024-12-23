@@ -61,7 +61,7 @@ namespace Do_an_co_so
 			// 
 			this.txtAddMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtAddMember.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtAddMember.Location = new System.Drawing.Point(140, 120);
+			this.txtAddMember.Location = new System.Drawing.Point(153, 120);
 			this.txtAddMember.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.txtAddMember.Name = "txtAddMember";
 			this.txtAddMember.Size = new System.Drawing.Size(691, 41);

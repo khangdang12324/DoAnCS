@@ -96,24 +96,26 @@
 			// 
 			this.linkLabel_QuenMatKhau.AutoSize = true;
 			this.linkLabel_QuenMatKhau.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.linkLabel_QuenMatKhau.Location = new System.Drawing.Point(163, 313);
+			this.linkLabel_QuenMatKhau.Location = new System.Drawing.Point(163, 397);
 			this.linkLabel_QuenMatKhau.Name = "linkLabel_QuenMatKhau";
 			this.linkLabel_QuenMatKhau.Size = new System.Drawing.Size(176, 26);
 			this.linkLabel_QuenMatKhau.TabIndex = 3;
 			this.linkLabel_QuenMatKhau.TabStop = true;
 			this.linkLabel_QuenMatKhau.Text = "Quên Mật Khẩu ?";
+			this.linkLabel_QuenMatKhau.Visible = false;
 			this.linkLabel_QuenMatKhau.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_QuenMatKhau_LinkClicked);
 			// 
 			// linkLabel_DangKy
 			// 
 			this.linkLabel_DangKy.AutoSize = true;
 			this.linkLabel_DangKy.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.linkLabel_DangKy.Location = new System.Drawing.Point(476, 313);
+			this.linkLabel_DangKy.Location = new System.Drawing.Point(476, 397);
 			this.linkLabel_DangKy.Name = "linkLabel_DangKy";
 			this.linkLabel_DangKy.Size = new System.Drawing.Size(96, 26);
 			this.linkLabel_DangKy.TabIndex = 4;
 			this.linkLabel_DangKy.TabStop = true;
 			this.linkLabel_DangKy.Text = "Đăng Ký";
+			this.linkLabel_DangKy.Visible = false;
 			this.linkLabel_DangKy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_DangKy_LinkClicked);
 			// 
 			// btnLogin
@@ -123,7 +125,7 @@
 			this.btnLogin.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnLogin.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-			this.btnLogin.Location = new System.Drawing.Point(281, 358);
+			this.btnLogin.Location = new System.Drawing.Point(256, 298);
 			this.btnLogin.Name = "btnLogin";
 			this.btnLogin.Size = new System.Drawing.Size(129, 36);
 			this.btnLogin.TabIndex = 5;
@@ -138,7 +140,7 @@
 			this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnExit.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnExit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-			this.btnExit.Location = new System.Drawing.Point(443, 358);
+			this.btnExit.Location = new System.Drawing.Point(418, 298);
 			this.btnExit.Name = "btnExit";
 			this.btnExit.Size = new System.Drawing.Size(129, 36);
 			this.btnExit.TabIndex = 6;
