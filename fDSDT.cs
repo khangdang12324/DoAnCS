@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
+using ClosedXML.Excel;
 namespace Do_an_co_so
 {
 	public partial class fDSDT : Form
@@ -115,8 +115,7 @@ SELECT
         WHEN ngayGiaHan IS NULL AND ngayNghiemThu IS NULL THEN NULL
         ELSE DATEDIFF(MONTH, ngayKetThuc, ISNULL(ngayGiaHan, GETDATE())) 
     END AS [Số tháng đã gia hạn],
-		kinhPhi AS [Kinh phí],
-		prize AS [Giải thưởng]
+		kinhPhi AS [Kinh phí]
 	FROM Projects;
 			  ";
 
@@ -392,8 +391,7 @@ SELECT
         WHEN ngayGiaHan IS NULL AND ngayNghiemThu IS NULL THEN NULL
         ELSE DATEDIFF(MONTH, ngayKetThuc, ISNULL(ngayGiaHan, GETDATE())) 
     END AS [Số tháng đã gia hạn],
-		kinhPhi AS [Kinh phí],
-		prize AS [Giải thưởng]
+		kinhPhi AS [Kinh phí]
 	FROM Projects
         WHERE 1 = 1"; // Luôn đúng, để nối thêm điều kiện sau
 
@@ -488,8 +486,7 @@ SELECT
         WHEN ngayGiaHan IS NULL AND ngayNghiemThu IS NULL THEN NULL
         ELSE DATEDIFF(MONTH, ngayKetThuc, ISNULL(ngayGiaHan, GETDATE())) 
     END AS [Số tháng đã gia hạn],
-		kinhPhi AS [Kinh phí],
-		prize AS [Giải thưởng]
+		kinhPhi AS [Kinh phí]
 	FROM Projects
         WHERE status = @status";
 
@@ -885,6 +882,51 @@ SELECT
 			}
 		}
 
+		private void btnXExcel_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// Tạo workbook và worksheet
+				using (XLWorkbook workbook = new XLWorkbook())
+				{
+					var worksheet = workbook.Worksheets.Add("Danh sách dự án");
 
+					// Tạo tiêu đề từ cột DataGridView
+					for (int i = 0; i < dtgvDSDT.Columns.Count; i++)
+					{
+						worksheet.Cell(1, i + 1).Value = dtgvDSDT.Columns[i].HeaderText;
+					}
+
+					// Sao chép dữ liệu từ DataGridView vào Excel
+					for (int i = 0; i < dtgvDSDT.Rows.Count; i++)
+					{
+						for (int j = 0; j < dtgvDSDT.Columns.Count; j++)
+						{
+							worksheet.Cell(i + 2, j + 1).Value = dtgvDSDT.Rows[i].Cells[j].Value?.ToString();
+						}
+					}
+
+					// Định dạng
+					worksheet.Columns().AdjustToContents(); // Tự động chỉnh độ rộng cột
+
+					// Lưu file
+					SaveFileDialog saveFileDialog = new SaveFileDialog
+					{
+						Filter = "Excel Workbook|*.xlsx",
+						Title = "Lưu file Excel"
+					};
+
+					if (saveFileDialog.ShowDialog() == DialogResult.OK)
+					{
+						workbook.SaveAs(saveFileDialog.FileName);
+						MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 	}
 }

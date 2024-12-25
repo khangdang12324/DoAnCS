@@ -32,8 +32,6 @@
 			this.lbQD = new System.Windows.Forms.Label();
 			this.txtQDSo = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label12 = new System.Windows.Forms.Label();
-			this.txtTenTVBB = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
 			this.txtTenTacGia = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -52,6 +50,12 @@
 			this.xóaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtIDBB = new System.Windows.Forms.TextBox();
+			this.cbbGiaiThuong = new System.Windows.Forms.ComboBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.btnThem = new System.Windows.Forms.Button();
+			this.btnCapKinhPhi = new System.Windows.Forms.Button();
+			this.label6 = new System.Windows.Forms.Label();
+			this.txtCapKP = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSBB)).BeginInit();
 			this.contextMenuStripDelete.SuspendLayout();
 			this.SuspendLayout();
@@ -89,29 +93,6 @@
 			this.label1.Size = new System.Drawing.Size(194, 39);
 			this.label1.TabIndex = 22;
 			this.label1.Text = "Xem chi tiết";
-			// 
-			// label12
-			// 
-			this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label12.AutoSize = true;
-			this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-			this.label12.Location = new System.Drawing.Point(759, 335);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(142, 50);
-			this.label12.TabIndex = 58;
-			this.label12.Text = "Tên thành viên\r\n của bài báo:";
-			// 
-			// txtTenTVBB
-			// 
-			this.txtTenTVBB.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.txtTenTVBB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-			this.txtTenTVBB.Location = new System.Drawing.Point(930, 338);
-			this.txtTenTVBB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.txtTenTVBB.Multiline = true;
-			this.txtTenTVBB.Name = "txtTenTVBB";
-			this.txtTenTVBB.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtTenTVBB.Size = new System.Drawing.Size(494, 119);
-			this.txtTenTVBB.TabIndex = 57;
 			// 
 			// label11
 			// 
@@ -177,7 +158,7 @@
 			this.txtTenBaiBao.Multiline = true;
 			this.txtTenBaiBao.Name = "txtTenBaiBao";
 			this.txtTenBaiBao.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.txtTenBaiBao.Size = new System.Drawing.Size(494, 159);
+			this.txtTenBaiBao.Size = new System.Drawing.Size(494, 139);
 			this.txtTenBaiBao.TabIndex = 51;
 			// 
 			// btnThemBB
@@ -308,11 +289,85 @@
 			this.txtIDBB.Size = new System.Drawing.Size(494, 30);
 			this.txtIDBB.TabIndex = 72;
 			// 
+			// cbbGiaiThuong
+			// 
+			this.cbbGiaiThuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cbbGiaiThuong.FormattingEnabled = true;
+			this.cbbGiaiThuong.Items.AddRange(new object[] {
+            "Giải nhất",
+            "Giải nhì",
+            "Giải ba",
+            "Giải khuyến khích"});
+			this.cbbGiaiThuong.Location = new System.Drawing.Point(223, 462);
+			this.cbbGiaiThuong.Name = "cbbGiaiThuong";
+			this.cbbGiaiThuong.Size = new System.Drawing.Size(306, 33);
+			this.cbbGiaiThuong.TabIndex = 74;
+			// 
+			// label5
+			// 
+			this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.label5.AutoSize = true;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+			this.label5.Location = new System.Drawing.Point(64, 454);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(117, 25);
+			this.label5.TabIndex = 73;
+			this.label5.Text = "Giải thưởng:";
+			// 
+			// btnThem
+			// 
+			this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnThem.Location = new System.Drawing.Point(542, 459);
+			this.btnThem.Name = "btnThem";
+			this.btnThem.Size = new System.Drawing.Size(175, 36);
+			this.btnThem.TabIndex = 75;
+			this.btnThem.Text = "Thêm giải thưởng";
+			this.btnThem.UseVisualStyleBackColor = true;
+			this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+			// 
+			// btnCapKinhPhi
+			// 
+			this.btnCapKinhPhi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnCapKinhPhi.Location = new System.Drawing.Point(1249, 341);
+			this.btnCapKinhPhi.Name = "btnCapKinhPhi";
+			this.btnCapKinhPhi.Size = new System.Drawing.Size(175, 40);
+			this.btnCapKinhPhi.TabIndex = 78;
+			this.btnCapKinhPhi.Text = "Cấp kinh phí";
+			this.btnCapKinhPhi.UseVisualStyleBackColor = true;
+			// 
+			// label6
+			// 
+			this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.label6.AutoSize = true;
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+			this.label6.Location = new System.Drawing.Point(771, 347);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(89, 25);
+			this.label6.TabIndex = 76;
+			this.label6.Text = "Kinh phí:";
+			// 
+			// txtCapKP
+			// 
+			this.txtCapKP.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.txtCapKP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+			this.txtCapKP.Location = new System.Drawing.Point(930, 341);
+			this.txtCapKP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.txtCapKP.Multiline = true;
+			this.txtCapKP.Name = "txtCapKP";
+			this.txtCapKP.Size = new System.Drawing.Size(285, 40);
+			this.txtCapKP.TabIndex = 79;
+			// 
 			// fXemChiTiet
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1552, 876);
+			this.Controls.Add(this.txtCapKP);
+			this.Controls.Add(this.btnCapKinhPhi);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.btnThem);
+			this.Controls.Add(this.cbbGiaiThuong);
+			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.txtIDBB);
 			this.Controls.Add(this.btnMacDinh);
@@ -323,8 +378,6 @@
 			this.Controls.Add(this.btnThemBB);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.txtTenDeTai);
-			this.Controls.Add(this.label12);
-			this.Controls.Add(this.txtTenTVBB);
 			this.Controls.Add(this.label11);
 			this.Controls.Add(this.txtTenTacGia);
 			this.Controls.Add(this.label4);
@@ -350,8 +403,6 @@
 		private System.Windows.Forms.Label lbQD;
 		private System.Windows.Forms.TextBox txtQDSo;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label12;
-		private System.Windows.Forms.TextBox txtTenTVBB;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.TextBox txtTenTacGia;
 		private System.Windows.Forms.Label label4;
@@ -370,5 +421,11 @@
 		private System.Windows.Forms.ToolStripMenuItem xóaToolStripMenuItem;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtIDBB;
+		private System.Windows.Forms.ComboBox cbbGiaiThuong;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Button btnThem;
+		private System.Windows.Forms.Button btnCapKinhPhi;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.TextBox txtCapKP;
 	}
 }

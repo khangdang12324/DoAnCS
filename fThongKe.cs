@@ -27,7 +27,7 @@ namespace Do_an_co_so
 		{
 			string query = @"SELECT qdSo AS [Quyết định số], nameProject as [Tên đề tài],FORMAT(ngayBatDau, 'yyyy') AS [Năm bắt đầu],
     FORMAT(ngayKetThuc, 'yyyy') AS [Năm kết thúc],nameResearchers as [Tên chủ nhiệm],
-nameMember as [Tên thành viên],prize as [Giải thưởng] FROM dbo.Projects";
+prize as [Giải thưởng] FROM dbo.Projects";
 
 			dtgvCN.DataSource = DataProvider.Instance.ExecuteQuery(query);
 
@@ -48,7 +48,7 @@ nameMember as [Tên thành viên],prize as [Giải thưởng] FROM dbo.Projects"
 			{
 				// Kết nối đến cơ sở dữ liệu (Sử dụng ADO.NET hoặc Entity Framework)
 				string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True";
-				string query = "SELECT qdSo AS [Quyết định số], nameProject as [Tên đề tài],FORMAT(ngayBatDau, 'yyyy') AS [Năm bắt đầu],\r\n    FORMAT(ngayKetThuc, 'yyyy') AS [Năm kết thúc],nameResearchers as [Tên chủ nhiệm],nameMember as [Tên thành viên],prize as [Giải thưởng] FROM dbo.Projects WHERE nameResearchers LIKE @tenChuNhiem";
+				string query = "SELECT qdSo AS [Quyết định số], nameProject as [Tên đề tài],FORMAT(ngayBatDau, 'yyyy') AS [Năm bắt đầu],\r\n    FORMAT(ngayKetThuc, 'yyyy') AS [Năm kết thúc],nameResearchers as [Tên chủ nhiệm],prize as [Giải thưởng] FROM dbo.Projects WHERE nameResearchers LIKE @tenChuNhiem";
 
 				using (SqlConnection conn = new SqlConnection(connectionString))
 				{
@@ -70,52 +70,11 @@ nameMember as [Tên thành viên],prize as [Giải thưởng] FROM dbo.Projects"
 		}
 		public void AddBinding()
 		{
-			txtTenChuNhiem2.DataBindings.Clear();
-
-			txtTenChuNhiem2.DataBindings.Add("Text", dtgvCN.DataSource, "Tên chủ nhiệm");
+		
 		}
 		private void btnThem_Click(object sender, EventArgs e)
 		{
-			// Kiểm tra nếu có hàng nào được chọn
-			if (dtgvCN.CurrentRow != null)
-			{
-				int rowIndex = dtgvCN.CurrentRow.Index;
-
-				// Lấy QDSo của dòng hiện tại
-				string qdSo = dtgvCN.Rows[rowIndex].Cells["Quyết định số"].Value.ToString();
-
-				// Tiến hành thêm giải thưởng hoặc các thao tác khác
-				string newPrize = cbbGiaiThuong.Text.Trim();
-				if (!string.IsNullOrEmpty(newPrize))
-				{
-					string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True";
-					string query = "UPDATE Projects SET prize = @newPrize WHERE QDSo = @qdSo";
-
-					using (SqlConnection conn = new SqlConnection(connectionString))
-					{
-						SqlCommand cmd = new SqlCommand(query, conn);
-						cmd.Parameters.AddWithValue("@newPrize", newPrize);
-						cmd.Parameters.AddWithValue("@qdSo", qdSo);
-
-						conn.Open();
-						int rowsAffected = cmd.ExecuteNonQuery();
-
-						if (rowsAffected > 0)
-						{
-							MessageBox.Show("Giải thưởng đã được thêm thành công!");
-							LoadDataChuNhiem();
-						}
-						else
-						{
-							MessageBox.Show("Không thể thêm giải thưởng. Vui lòng thử lại.");
-						}
-					}
-				}
-			}
-			else
-			{
-				MessageBox.Show("Vui lòng chọn một hàng!");
-			}
+			
 		}
 
 
@@ -149,7 +108,7 @@ nameMember as [Tên thành viên],prize as [Giải thưởng] FROM dbo.Projects"
                FORMAT(ngayBatDau, 'yyyy') AS [Năm bắt đầu],
                FORMAT(ngayKetThuc, 'yyyy') AS [Năm kết thúc],
                nameResearchers AS [Tên chủ nhiệm],
-               nameMember AS [Tên thành viên],
+         
                prize AS [Giải thưởng]
         FROM dbo.Projects
         WHERE YEAR(ngayBatDau) >= @startYear AND YEAR(ngayKetThuc) <= @endYear";
@@ -190,6 +149,11 @@ nameMember as [Tên thành viên],prize as [Giải thưởng] FROM dbo.Projects"
 			{
 				MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void dtgvCN_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+
 		}
 	}
 

@@ -28,33 +28,17 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.label2 = new System.Windows.Forms.Label();
 			this.txtTenChuNhiem = new System.Windows.Forms.TextBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.dtpNgayBatDau = new System.Windows.Forms.DateTimePicker();
 			this.label1 = new System.Windows.Forms.Label();
 			this.dtpNgayKetThuc = new System.Windows.Forms.DateTimePicker();
-			this.label3 = new System.Windows.Forms.Label();
-			this.cbbGiaiThuong = new System.Windows.Forms.ComboBox();
 			this.dtgvCN = new System.Windows.Forms.DataGridView();
-			this.btnThem = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
-			this.txtTenChuNhiem2 = new System.Windows.Forms.TextBox();
 			this.txtTongSo = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvCN)).BeginInit();
 			this.SuspendLayout();
-			// 
-			// label2
-			// 
-			this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-			this.label2.Location = new System.Drawing.Point(7, 83);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(148, 25);
-			this.label2.TabIndex = 12;
-			this.label2.Text = "Tên chủ nhiệm:";
 			// 
 			// txtTenChuNhiem
 			// 
@@ -111,31 +95,6 @@
 			this.dtpNgayKetThuc.TabIndex = 51;
 			this.dtpNgayKetThuc.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
 			// 
-			// label3
-			// 
-			this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-			this.label3.Location = new System.Drawing.Point(887, 34);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(117, 25);
-			this.label3.TabIndex = 53;
-			this.label3.Text = "Giải thưởng:";
-			// 
-			// cbbGiaiThuong
-			// 
-			this.cbbGiaiThuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.cbbGiaiThuong.FormattingEnabled = true;
-			this.cbbGiaiThuong.Items.AddRange(new object[] {
-            "Giải nhất",
-            "Giải nhì",
-            "Giải ba",
-            "Giải khuyến khích"});
-			this.cbbGiaiThuong.Location = new System.Drawing.Point(1234, 31);
-			this.cbbGiaiThuong.Name = "cbbGiaiThuong";
-			this.cbbGiaiThuong.Size = new System.Drawing.Size(306, 33);
-			this.cbbGiaiThuong.TabIndex = 54;
-			// 
 			// dtgvCN
 			// 
 			this.dtgvCN.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -145,19 +104,9 @@
 			this.dtgvCN.RowTemplate.Height = 24;
 			this.dtgvCN.Size = new System.Drawing.Size(1857, 572);
 			this.dtgvCN.TabIndex = 55;
+			this.dtgvCN.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvCN_CellContentClick);
 			this.dtgvCN.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dtgvCN_CellMouseDown);
 			this.dtgvCN.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dtgvCN_RowStateChanged);
-			// 
-			// btnThem
-			// 
-			this.btnThem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnThem.Location = new System.Drawing.Point(1694, 186);
-			this.btnThem.Name = "btnThem";
-			this.btnThem.Size = new System.Drawing.Size(175, 36);
-			this.btnThem.TabIndex = 56;
-			this.btnThem.Text = "Thêm giải thưởng";
-			this.btnThem.UseVisualStyleBackColor = true;
-			this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
 			// 
 			// label4
 			// 
@@ -169,16 +118,6 @@
 			this.label4.Size = new System.Drawing.Size(192, 25);
 			this.label4.TabIndex = 57;
 			this.label4.Text = "Tìm kiếm chủ nhiệm:";
-			// 
-			// txtTenChuNhiem2
-			// 
-			this.txtTenChuNhiem2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.txtTenChuNhiem2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-			this.txtTenChuNhiem2.Location = new System.Drawing.Point(241, 83);
-			this.txtTenChuNhiem2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.txtTenChuNhiem2.Name = "txtTenChuNhiem2";
-			this.txtTenChuNhiem2.Size = new System.Drawing.Size(494, 30);
-			this.txtTenChuNhiem2.TabIndex = 58;
 			// 
 			// txtTongSo
 			// 
@@ -207,16 +146,11 @@
 			this.Controls.Add(this.txtTongSo);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.label4);
-			this.Controls.Add(this.txtTenChuNhiem2);
-			this.Controls.Add(this.btnThem);
 			this.Controls.Add(this.dtgvCN);
-			this.Controls.Add(this.cbbGiaiThuong);
-			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.dtpNgayKetThuc);
 			this.Controls.Add(this.label13);
 			this.Controls.Add(this.dtpNgayBatDau);
-			this.Controls.Add(this.label2);
 			this.Controls.Add(this.txtTenChuNhiem);
 			this.Name = "fThongKe";
 			this.Text = "Thống kê";
@@ -228,19 +162,13 @@
 		}
 
 		#endregion
-
-		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtTenChuNhiem;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.DateTimePicker dtpNgayBatDau;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.DateTimePicker dtpNgayKetThuc;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.ComboBox cbbGiaiThuong;
 		private System.Windows.Forms.DataGridView dtgvCN;
-		private System.Windows.Forms.Button btnThem;
 		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.TextBox txtTenChuNhiem2;
 		private System.Windows.Forms.TextBox txtTongSo;
 		private System.Windows.Forms.Label label6;
 	}

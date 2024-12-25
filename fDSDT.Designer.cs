@@ -42,6 +42,7 @@
 			this.label5 = new System.Windows.Forms.Label();
 			this.rdAll = new System.Windows.Forms.RadioButton();
 			this.pnCap = new System.Windows.Forms.Panel();
+			this.rdCapCoSo = new System.Windows.Forms.RadioButton();
 			this.rdCapTruong = new System.Windows.Forms.RadioButton();
 			this.rdCapTinh = new System.Windows.Forms.RadioButton();
 			this.rdCapTrgTrongDiem = new System.Windows.Forms.RadioButton();
@@ -62,7 +63,7 @@
 			this.tiếpTụcDựÁnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label6 = new System.Windows.Forms.Label();
 			this.txtTongSo = new System.Windows.Forms.TextBox();
-			this.rdCapCoSo = new System.Windows.Forms.RadioButton();
+			this.btnXExcel = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.dtgvDSDT)).BeginInit();
 			this.contextMenuStripXoaDeTai.SuspendLayout();
 			this.contextMenuStripAddMember.SuspendLayout();
@@ -222,6 +223,18 @@
 			this.pnCap.Size = new System.Drawing.Size(240, 128);
 			this.pnCap.TabIndex = 39;
 			this.pnCap.Visible = false;
+			// 
+			// rdCapCoSo
+			// 
+			this.rdCapCoSo.AutoSize = true;
+			this.rdCapCoSo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.rdCapCoSo.Location = new System.Drawing.Point(11, 102);
+			this.rdCapCoSo.Name = "rdCapCoSo";
+			this.rdCapCoSo.Size = new System.Drawing.Size(122, 29);
+			this.rdCapCoSo.TabIndex = 39;
+			this.rdCapCoSo.Text = "Cấp cơ sở";
+			this.rdCapCoSo.UseVisualStyleBackColor = true;
+			this.rdCapCoSo.CheckedChanged += new System.EventHandler(this.rdCapCoSo_CheckedChanged);
 			// 
 			// rdCapTruong
 			// 
@@ -432,23 +445,23 @@
 			this.txtTongSo.TabIndex = 44;
 			this.txtTongSo.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
-			// rdCapCoSo
+			// btnXExcel
 			// 
-			this.rdCapCoSo.AutoSize = true;
-			this.rdCapCoSo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.rdCapCoSo.Location = new System.Drawing.Point(11, 102);
-			this.rdCapCoSo.Name = "rdCapCoSo";
-			this.rdCapCoSo.Size = new System.Drawing.Size(122, 29);
-			this.rdCapCoSo.TabIndex = 39;
-			this.rdCapCoSo.Text = "Cấp cơ sở";
-			this.rdCapCoSo.UseVisualStyleBackColor = true;
-			this.rdCapCoSo.CheckedChanged += new System.EventHandler(this.rdCapCoSo_CheckedChanged);
+			this.btnXExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnXExcel.Location = new System.Drawing.Point(1741, 786);
+			this.btnXExcel.Name = "btnXExcel";
+			this.btnXExcel.Size = new System.Drawing.Size(132, 37);
+			this.btnXExcel.TabIndex = 45;
+			this.btnXExcel.Text = "Xuất Excel";
+			this.btnXExcel.UseVisualStyleBackColor = true;
+			this.btnXExcel.Click += new System.EventHandler(this.btnXExcel_Click);
 			// 
 			// fDSDT
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1917, 825);
+			this.Controls.Add(this.btnXExcel);
 			this.Controls.Add(this.txtTongSo);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.txtTimKiemTheoDeTai);
@@ -510,5 +523,6 @@
 		private System.Windows.Forms.ToolStripMenuItem xóaDựÁnToolStripMenuItem;
 		private System.Windows.Forms.TextBox txtTongSo;
 		private System.Windows.Forms.RadioButton rdCapCoSo;
+		private System.Windows.Forms.Button btnXExcel;
 	}
 }

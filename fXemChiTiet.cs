@@ -50,7 +50,6 @@ namespace Do_an_co_so
 							txtTenTapChi.Text = reader["tenTapChi"].ToString();
 							txtTenTacGia.Text = reader["tenTacGia"].ToString();
 							dtpNgayDang.Text = reader["ngayDang"].ToString();
-							txtTenTVBB.Text = reader["tenThanhVienBaiBao"].ToString();
 
 						}
 						else
@@ -71,7 +70,7 @@ namespace Do_an_co_so
 				{
 					connection.Open();
 					string query = "SELECT ArticleID as [Mã bài báo], tenBaiBao AS [Tên bài báo], tenTapChi as [Tên tạp chí], tenTacGia AS [Tên tác giả]," +
-						" tenThanhVienBaiBao as [Tên thành viên bài báo], ngayDang as [Ngày đăng] FROM Articles WHERE qdSo = @QDSo";
+						" ngayDang as [Ngày đăng] FROM Articles WHERE qdSo = @QDSo";
 
 					using (SqlCommand cmd = new SqlCommand(query, connection))
 					{
@@ -122,8 +121,8 @@ namespace Do_an_co_so
 					connection.Open();
 
 					// Câu lệnh INSERT
-					string query = "INSERT INTO Articles (qdSo, tenBaiBao, tenTapChi, tenTacGia, tenThanhVienBaiBao, ngayDang) " +
-								   "VALUES (@QDSo, @TenBaiBao, @TenTapChi, @TenTacGia,@tenThanhVienBaiBao, @NgayDang)";
+					string query = "INSERT INTO Articles (qdSo, tenBaiBao, tenTapChi, tenTacGia, ngayDang) " +
+								   "VALUES (@QDSo, @TenBaiBao, @TenTapChi, @TenTacGia, @NgayDang)";
 
 					using (SqlCommand cmd = new SqlCommand(query, connection))
 					{
@@ -132,7 +131,7 @@ namespace Do_an_co_so
 						cmd.Parameters.AddWithValue("@TenBaiBao", txtTenBaiBao.Text.Trim());
 						cmd.Parameters.AddWithValue("@TenTapChi", txtTenTapChi.Text.Trim());
 						cmd.Parameters.AddWithValue("@TenTacGia", txtTenTacGia.Text.Trim());
-						cmd.Parameters.AddWithValue("@tenThanhVienBaiBao", txtTenTVBB.Text.Trim());
+	
 						cmd.Parameters.AddWithValue("@NgayDang", dtpNgayDang.Value);
 
 						// Thực thi lệnh INSERT
@@ -164,7 +163,7 @@ namespace Do_an_co_so
 			txtTenBaiBao.Clear();
 			txtTenTacGia.Clear();
 			txtTenTapChi.Clear();
-			txtTenTVBB.Clear();
+		
 		}
 		public void AddBinding()
 		{
@@ -178,23 +177,22 @@ namespace Do_an_co_so
 			txtTenBaiBao.DataBindings.Add("Text", dtgvDSBB.DataSource, "Tên bài báo" );
 			txtTenTapChi.DataBindings.Add("Text", dtgvDSBB.DataSource, "Tên tạp chí" );
 			txtTenTacGia.DataBindings.Add("Text", dtgvDSBB.DataSource, "Tên tác giả");
-			txtTenTVBB.DataBindings.Add("Text", dtgvDSBB.DataSource, "Tên thành viên bài báo");
 			dtpNgayDang.DataBindings.Add("Value", dtgvDSBB.DataSource, "Ngày đăng");
 		}
-		public int Update(string maBaiBao, string tenBB, string tenTC, string tenTG, string tenTV, DateTime ngayDang)
+		public int Update(string maBaiBao, string tenBB, string tenTC, string tenTG, DateTime ngayDang)
 		{
 			var connString = Utilities.connectionString;
 			using (var conn = new SqlConnection(connString)) // Sử dụng `using` để tự động giải phóng tài nguyên
 			{
 				var cmd = conn.CreateCommand();
-				cmd.CommandText = "UPDATE Articles SET tenBaiBao = @TenBaiBao, tenTapChi = @TenTapChi, tenTacGia = @TenTacGia, tenThanhVienBaiBao = @TenThanhVienBaiBao, ngayDang = @NgayDang WHERE articleID = @ArticleID";
+				cmd.CommandText = "UPDATE Articles SET tenBaiBao = @TenBaiBao, tenTapChi = @TenTapChi, tenTacGia = @TenTacGia, ngayDang = @NgayDang WHERE articleID = @ArticleID";
 
 				// Thêm tham số với dữ liệu truyền vào từ tham số hàm
 				cmd.Parameters.AddWithValue("@TenBaiBao", tenBB);
 				cmd.Parameters.AddWithValue("@TenTapChi", tenTC);
 				cmd.Parameters.AddWithValue("@TenTacGia", tenTG);
 				cmd.Parameters.AddWithValue("@NgayDang", ngayDang);
-				cmd.Parameters.AddWithValue("@TenThanhVienBaiBao", tenTV);
+
 				cmd.Parameters.AddWithValue("@ArticleID", maBaiBao);
 
 				conn.Open();
@@ -215,11 +213,11 @@ namespace Do_an_co_so
 				string tenBB = txtTenBaiBao.Text.Trim();
 				string tenTC = txtTenTapChi.Text.Trim();
 				string tenTG = txtTenTacGia.Text.Trim();
-				string tenTV = txtTenTVBB.Text.Trim();
+
 				DateTime ngayDang = dtpNgayDang.Value;
 
 				// Gọi hàm cập nhật
-				int rowsAffected = Update(maBaiBao, tenBB, tenTC, tenTG, tenTV, ngayDang);
+				int rowsAffected = Update(maBaiBao, tenBB, tenTC, tenTG, ngayDang);
 
 				// Kiểm tra số dòng được cập nhật
 				if (rowsAffected > 0)
@@ -323,5 +321,56 @@ namespace Do_an_co_so
 			}
 		}
 
+		private void btnThem_Click(object sender, EventArgs e)
+		{
+			// Kiểm tra nếu có hàng nào được chọn
+			if (dtgvDSBB.CurrentRow != null)
+			{
+				int rowIndex = dtgvDSBB.CurrentRow.Index;
+
+				// Lấy QDSo của dòng hiện tại
+				string qdSo = txtQDSo.Text.ToString();
+
+				// Tiến hành thêm giải thưởng hoặc các thao tác khác
+				string newPrize = cbbGiaiThuong.Text.Trim();
+				if (!string.IsNullOrEmpty(newPrize))
+				{
+					string connectionString = @"Data Source=LAPTOP-KHANGDAN;Initial Catalog=QuanLyNCKH;Integrated Security=True";
+					string query = "UPDATE Projects SET prize = @newPrize WHERE QDSo = @qdSo";
+
+					using (SqlConnection conn = new SqlConnection(connectionString))
+					{
+						SqlCommand cmd = new SqlCommand(query, conn);
+						cmd.Parameters.AddWithValue("@newPrize", newPrize);
+						cmd.Parameters.AddWithValue("@qdSo", qdSo);
+
+						conn.Open();
+						int rowsAffected = cmd.ExecuteNonQuery();
+
+						if (rowsAffected > 0)
+						{
+							MessageBox.Show("Giải thưởng đã được thêm thành công!");
+							
+						}
+						else
+						{
+							MessageBox.Show("Không thể thêm giải thưởng. Vui lòng thử lại.");
+						}
+					}
+				}
+			}
+			else
+			{
+				MessageBox.Show("Vui lòng chọn một hàng!");
+			}
+		}
+		private void LoadDataChuNhiem()
+		{
+			string query = @"SELECT ArticleID as [Mã bài báo], tenBaiBao AS [Tên bài báo], tenTapChi as [Tên tạp chí], tenTacGia AS [Tên tác giả]," +
+						" ngayDang as [Ngày đăng] FROM Articles WHERE qdSo = @QDSo";
+
+			dtgvDSBB.DataSource = DataProvider.Instance.ExecuteQuery(query);
+
+		}
 	}
 }
